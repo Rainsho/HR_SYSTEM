@@ -48,8 +48,8 @@ public class LoginFrame extends JFrame {
 	 * Create the frame.
 	 */
 	public LoginFrame() {
-		setTitle("HR\u7CFB\u7EDFv1.0");
 		final JFrame that = this;
+		setTitle("HR\u7CFB\u7EDFv1.0");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -113,6 +113,11 @@ public class LoginFrame extends JFrame {
 		panel.add(button);
 
 		JButton button_1 = new JButton("\u9000\u51FA");
+		button_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				that.dispose();
+			}
+		});
 		button_1.setBounds(224, 180, 93, 23);
 		panel.add(button_1);
 	}

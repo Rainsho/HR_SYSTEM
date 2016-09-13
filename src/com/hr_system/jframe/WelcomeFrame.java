@@ -12,10 +12,14 @@ import javax.swing.border.TitledBorder;
 import javax.swing.JMenuItem;
 import javax.swing.JLabel;
 
+import com.hr_system.jframe.hrmange.EmpMangeFrame;
+import com.hr_system.jframe.hrmange.EmpRegistFrame;
 import com.hr_system.util.AllObj;
 
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class WelcomeFrame extends JFrame {
 
@@ -45,6 +49,7 @@ public class WelcomeFrame extends JFrame {
 	 * Create the frame.
 	 */
 	public WelcomeFrame() {
+		final JFrame that = this;
 		setTitle("HR\u7CFB\u7EDFv1.0");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 800, 500);
@@ -68,9 +73,21 @@ public class WelcomeFrame extends JFrame {
 		menuBar.add(mnNewMenu);
 
 		JMenuItem menuItem = new JMenuItem("\u5458\u5DE5\u7BA1\u7406");
+		menuItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				that.dispose();
+				new EmpMangeFrame().setVisible(true);
+			}
+		});
 		mnNewMenu.add(menuItem);
 
 		JMenuItem menuItem_1 = new JMenuItem("\u6CE8\u518C\u7528\u6237");
+		menuItem_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				that.dispose();
+				new EmpRegistFrame().setVisible(true);
+			}
+		});
 		mnNewMenu.add(menuItem_1);
 
 		JMenu mnNewMenu_1 = new JMenu("\u57F9\u8BAD\u7BA1\u7406");

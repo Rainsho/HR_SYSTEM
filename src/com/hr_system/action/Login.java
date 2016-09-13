@@ -9,8 +9,8 @@ import com.hr_system.util.ORM;
 public class Login {
 
 	public static EmployeeBean login(String uname, String upassword, int perid) {
-		ORM.con();
 		try {
+			ORM.con();
 			ORM.pst = ORM.con
 					.prepareStatement("select * from employee where uname=? and upassword=? and perid=?");
 			ORM.pst.setString(1, uname);
