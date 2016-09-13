@@ -1,7 +1,8 @@
-package com.hr_system.db;
+package com.hr_system.util;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
@@ -11,33 +12,41 @@ import java.util.ArrayList;
 public class ORM {
 
 	private static final String DRIVER = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
-	private static final String URL = "jdbc:sqlserver://localhost:1433;DataBaseName=";
+	private static final String URL = "jdbc:sqlserver://192.168.5.55:1433;DataBaseName=";
+	private static final String USER = "sa";
+	private static final String PSWD = "root";
+	private static final String DB = "HR";
 
-	private String USER;
-	private String PSWD;
-	private String DB;
+	public static Connection con;
+	public static Statement sta;
+	public static PreparedStatement pst;
+	public static ResultSet rs;
+	public static ResultSetMetaData rsmd;
 
-	Connection con;
-	Statement sta;
-	ResultSet rs;
-	ResultSetMetaData rsmd;
-
-	public static void main(String[] args) {
-		/*
-		 * ORM o1 = new ORM("sa", "root", "test101"); for (ArrayList<String> x :
-		 * o1.dql("select * from tb_Prod where id > 5")) {
-		 * System.out.println(x); } System.out.println(""); ORM o2 = new
-		 * ORM("sa", "root", "HUAWEI"); for (ArrayList<String> x :
-		 * o2.dql("select top 20 * from employee")) { System.out.println(x); }
-		 * System.out.println("");
-		 * o2.dml("update employee set salary = salary+1 where employeeid = 1");
-		 */
+	public static void con() {
+		try {
+			con = DriverManager.getConnection(URL + DB, USER, PSWD);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
-	public ORM(String u, String p, String db) {
-		this.USER = u;
-		this.PSWD = p;
-		this.DB = db;
+	public static void close() {
+		try {
+			if (rs != null)
+				rs.close();
+			if (pst != null)
+				pst.close();
+			if (sta != null)
+				sta.close();
+			if (con != null)
+				con.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public ORM() {
 		try {
 			Class.forName(DRIVER);
 		} catch (ClassNotFoundException e) {
