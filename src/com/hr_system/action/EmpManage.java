@@ -49,6 +49,7 @@ public class EmpManage {
 	public static Vector<String> E2V(EmployeeBean emp) {
 		// 把emp对象转换成vec对象，方便table加行
 		Vector<String> vec = new Vector<String>();
+		vec.add(emp.getUid() + "");
 		vec.add(emp.getUname());
 		vec.add(emp.getUpassword());
 		vec.add(AllObj.depname.get(emp.getDepid()));
@@ -74,7 +75,7 @@ public class EmpManage {
 	}
 
 	public static void up_table(JTable table, int s, int t) {
-		String[] col = new String[] { "姓名", "密码", "部门", "职务", "性别", "电话" };
+		String[] col = new String[] { "ID", "姓名", "密码", "部门", "职务", "性别", "电话" };
 		String[][] row = new String[t - s + 1][col.length];
 		for (int i = 0; i < t - s + 1; i++) {
 			row[i] = E2V(AllObj.user_show.get(s + i)).toArray(row[i]);

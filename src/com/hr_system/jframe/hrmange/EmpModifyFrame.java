@@ -1,7 +1,5 @@
 package com.hr_system.jframe.hrmange;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -19,9 +17,11 @@ import com.hr_system.bean.EmployeeBean;
 import com.hr_system.util.AllObj;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.UIManager;
+import java.awt.Color;
 
-public class EmpRegistFrame extends JFrame {
-
+public class EmpModifyFrame extends JFrame {
+	EmployeeBean emp;
 	/**
 	 * 
 	 */
@@ -32,26 +32,11 @@ public class EmpRegistFrame extends JFrame {
 	private JTextField textField_2;
 
 	/**
-	 * Launch the application.
+	 * 删除主方法，改窗口只能确定修改对象后调用 Create the frame.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					EmpRegistFrame frame = new EmpRegistFrame();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
-	public EmpRegistFrame() {
+	public EmpModifyFrame(final EmployeeBean emp) {
 		final JFrame that = this;
+		this.emp = emp;
 		setTitle("HR\u7CFB\u7EDFv1.0");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 420, 500);
@@ -61,9 +46,10 @@ public class EmpRegistFrame extends JFrame {
 		contentPane.setLayout(null);
 
 		JPanel panel = new JPanel();
-		panel.setBorder(new TitledBorder(null,
-				"\u6CE8\u518C\u65B0\u7528\u6237", TitledBorder.LEADING,
-				TitledBorder.TOP, null, null));
+		panel.setBorder(new TitledBorder(UIManager
+				.getBorder("TitledBorder.border"), "\u4EBA\u4E8B\u53D8\u52A8",
+				TitledBorder.LEADING, TitledBorder.TOP, null,
+				new Color(0, 0, 0)));
 		panel.setBounds(10, 10, 385, 440);
 		contentPane.add(panel);
 		panel.setLayout(null);
@@ -132,9 +118,10 @@ public class EmpRegistFrame extends JFrame {
 		radioButton_1.setBounds(207, 289, 50, 23);
 		panel.add(radioButton_1);
 
-		JButton button = new JButton("\u6CE8\u518C");
+		final JButton button = new JButton("\u4FEE\u6539");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				// 获取修改后的信息
 				String nm = textField.getText().trim();
 				String ps = textField_1.getText().trim();
 				String tel = textField_2.getText().trim();
@@ -161,17 +148,29 @@ public class EmpRegistFrame extends JFrame {
 						break;
 					}
 				}
-				EmployeeBean obj = new EmployeeBean(0, dep_id, rank_id, per_id,
-						nm, ps, gen, tel);
-				// 检查后增加新增方法！
-				if (EmpRegist.ck(obj)) {
-					System.out.println("该员工已存在");
-				} else {
-					EmpRegist.add(obj);
+				// 数据检查
+				String nm_tep = emp.getUname();// 临时存储uname，改变uname后使用regist的方法检查uname是否已存在
+				if (!nm.equals(nm_tep)) {
+					emp.setUname(nm);
+					if (EmpRegist.ck(emp)) {
+						System.out.println("该员工名已存在");
+						emp.setUname(nm_tep);
+						return;
+					}
 				}
+				// 更新object
+				emp.setDepid(dep_id);
+				emp.setRankid(rank_id);
+				emp.setPerid(per_id);
+				emp.setUname(nm);
+				emp.setUpassword(ps);
+				emp.setUgender(gen);
+				emp.setUtelphone(tel);
+				// 更新数据库
+				EmpRegist.modify(emp);
 			}
 		});
-		button.setBounds(49, 368, 93, 30);
+		button.setBounds(50, 353, 80, 30);
 		panel.add(button);
 
 		JButton button_1 = new JButton("\u5173\u95ED");
@@ -188,8 +187,19 @@ public class EmpRegistFrame extends JFrame {
 				}
 			}
 		});
-		button_1.setBounds(199, 368, 93, 30);
+		button_1.setBounds(230, 353, 80, 30);
 		panel.add(button_1);
+
+		final JButton btnNewButton = new JButton("\u5220\u9664");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				EmpRegist.delete(emp);
+				btnNewButton.setEnabled(false);
+				button.setEnabled(false);
+			}
+		});
+		btnNewButton.setBounds(140, 353, 80, 30);
+		panel.add(btnNewButton);
 
 		// 动态加载
 		ButtonGroup bg = new ButtonGroup();
@@ -209,5 +219,20 @@ public class EmpRegistFrame extends JFrame {
 		for (String x : AllObj.pername.values()) {
 			comboBox_2.addItem(x);
 		}
+
+		// load_emp_information
+		textField.setText(emp.getUname());
+		textField_1.setText(emp.getUpassword());
+		textField_2.setText(emp.getUtelphone());
+		comboBox.setSelectedItem(AllObj.depname.get(emp.getDepid()));
+		comboBox_1.setSelectedItem(AllObj.rankname.get(emp.getRankid()));
+		comboBox_2.setSelectedItem(AllObj.pername.get(emp.getPerid()));
+
+		if (emp.getUgender().equals("男")) {
+			radioButton.setSelected(true);
+		} else {
+			radioButton_1.setSelected(true);
+		}
 	}
+
 }

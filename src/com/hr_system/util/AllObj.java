@@ -3,6 +3,9 @@ package com.hr_system.util;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.swing.JLabel;
+import javax.swing.JTable;
+
 import com.hr_system.bean.EmployeeBean;
 
 public class AllObj {
@@ -13,5 +16,7 @@ public class AllObj {
 	public static ArrayList<EmployeeBean> user_list = new ArrayList<EmployeeBean>();
 	public static ArrayList<EmployeeBean> user_show = new ArrayList<EmployeeBean>();
 	public static int page = 0;
+	public static JTable jtb;
+	public static JLabel jlb;
 
 }

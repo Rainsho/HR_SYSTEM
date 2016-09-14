@@ -182,7 +182,7 @@ public class WelcomeFrame extends JFrame {
 		final JLabel lblNewLabel_1 = new JLabel(
 				"\u4ECA\u5929\u5171\u6253\u5361X\u6B21\uFF0C\u5206\u522B\u4E3A\uFF1A");
 		panel_4.add(lblNewLabel_1);
-		//lblNewLabel_1.setText("");
+		// lblNewLabel_1.setText("");
 
 		final JButton button = new JButton("\u6253\u5361");
 		button.addActionListener(new ActionListener() {
