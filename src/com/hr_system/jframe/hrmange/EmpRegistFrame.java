@@ -164,8 +164,11 @@ public class EmpRegistFrame extends JFrame {
 				EmployeeBean obj = new EmployeeBean(0, dep_id, rank_id, per_id,
 						nm, ps, gen, tel);
 				// 检查后增加新增方法！
-				// EmpRegist.ck(obj);
-
+				if (EmpRegist.ck(obj)) {
+					System.out.println("该员工已存在");
+				} else {
+					EmpRegist.add(obj);
+				}
 			}
 		});
 		button.setBounds(49, 368, 93, 30);
