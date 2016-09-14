@@ -173,10 +173,21 @@ public class WelcomeFrame extends JFrame {
 		label.setFont(new Font("宋体", Font.PLAIN, 16));
 		panel_3.add(label);
 
+		JPanel panel_4 = new JPanel();
+		FlowLayout flowLayout_2 = (FlowLayout) panel_4.getLayout();
+		flowLayout_2.setAlignment(FlowLayout.LEFT);
+		panel_4.setBounds(20, 400, 745, 20);
+		contentPane.add(panel_4);
+
+		final JLabel lblNewLabel_1 = new JLabel(
+				"\u4ECA\u5929\u5171\u6253\u5361X\u6B21\uFF0C\u5206\u522B\u4E3A\uFF1A");
+		panel_4.add(lblNewLabel_1);
+		//lblNewLabel_1.setText("");
+
 		final JButton button = new JButton("\u6253\u5361");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//Welcome.att();下午做打卡
+				Welcome.att(lblNewLabel_1);
 				button.setEnabled(false);
 			}
 		});
@@ -188,6 +199,8 @@ public class WelcomeFrame extends JFrame {
 			lblNewLabel.setText(String.format("欢迎%s，登录HR管理系统！",
 					AllObj.user.getUname()));
 		}
-		new Thread(new Welcome(label)).start();//时钟
+		new Thread(new Welcome(label)).start();
+		// 扩展功能
+
 	}
 }

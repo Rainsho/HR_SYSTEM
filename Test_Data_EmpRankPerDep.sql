@@ -110,3 +110,5 @@ insert into Employee values (2,2,3,'pmmrqry','fgiajop','eynttdp','inkqmtq');
 insert into Employee values (2,2,3,'xngcntw','oxbsqnr','xtyaghj','qjctsux');
 insert into Employee values (1,2,1,'dsspsqp','fgmmkqt','mxuoyxi','nqtahmm');
 insert into Employee values (2,3,2,'ezblsuq','dbdvxcs','uymnohg','ufvvxbl');
+
+insert into AttMark (AttMark) values ('上班打卡'),('下班打卡'),('其他');
