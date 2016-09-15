@@ -38,7 +38,7 @@ public class EmpModifyFrame extends JFrame {
 		final JFrame that = this;
 		this.emp = emp;
 		setTitle("HR\u7CFB\u7EDFv1.0");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 420, 500);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

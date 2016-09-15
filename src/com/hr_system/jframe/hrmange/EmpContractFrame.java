@@ -5,6 +5,7 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
 import java.awt.FlowLayout;
 
 import javax.swing.border.TitledBorder;
@@ -12,16 +13,26 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JLabel;
 
-import com.hr_system.action.EmpManage;
+import com.hr_system.action.EmpContract;
 import com.hr_system.util.AllObj;
 
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.JComboBox;
 import javax.swing.JButton;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+
+import javax.swing.border.EtchedBorder;
+
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeEvent;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class EmpContractFrame extends JFrame {
 
@@ -56,10 +67,10 @@ public class EmpContractFrame extends JFrame {
 	 * Create the frame.
 	 */
 	public EmpContractFrame() {
-		EmpManage.load();
+		EmpContract.load();
 
 		setTitle("HR\u7CFB\u7EDFv1.0");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 800, 500);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -75,7 +86,8 @@ public class EmpContractFrame extends JFrame {
 		contentPane.add(panel);
 
 		JPanel panel_1 = new JPanel();
-		panel_1.setBorder(new TitledBorder(null, "\u5458\u5DE5\u7BA1\u7406",
+		panel_1.setBorder(new TitledBorder(new EtchedBorder(
+				EtchedBorder.LOWERED, null, null), "\u5408\u540C\u7BA1\u7406",
 				TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panel_1.setBounds(10, 60, 765, 380);
 		contentPane.add(panel_1);
@@ -87,46 +99,33 @@ public class EmpContractFrame extends JFrame {
 		FlowLayout fl_panel_2 = new FlowLayout(FlowLayout.LEFT, 5, 5);
 		panel_2.setLayout(fl_panel_2);
 
-		JLabel lblNewLabel = new JLabel("\u59D3\u540D\uFF1A");
+		JLabel lblNewLabel = new JLabel("\u5408\u540C\u540D\u79F0\uFF1A");
 		panel_2.add(lblNewLabel);
 
 		textField = new JTextField();
 		panel_2.add(textField);
 		textField.setColumns(8);
 
-		JLabel lblNewLabel_1 = new JLabel("\u7535\u8BDD\uFF1A");
+		JLabel lblNewLabel_1 = new JLabel("\u5408\u540C\u6027\u8D28\uFF1A");
 		panel_2.add(lblNewLabel_1);
 
 		textField_1 = new JTextField();
 		panel_2.add(textField_1);
 		textField_1.setColumns(8);
 
-		JLabel lblNewLabel_2 = new JLabel("\u90E8\u95E8\uFF1A");
-		panel_2.add(lblNewLabel_2);
-
-		final JComboBox comboBox = new JComboBox();
-		panel_2.add(comboBox);
-
-		JLabel lblNewLabel_3 = new JLabel("\u804C\u52A1\uFF1A");
-		panel_2.add(lblNewLabel_3);
-
-		final JComboBox comboBox_1 = new JComboBox();
-		panel_2.add(comboBox_1);
-
 		JButton btnNewButton = new JButton("\u67E5\u8BE2");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				EmpManage.filter(textField.getText().trim(), textField_1
-						.getText().trim(), comboBox.getSelectedItem()
-						.toString(), comboBox_1.getSelectedItem().toString());
-				EmpManage.up_table(table, 0,
-						Math.min(10, AllObj.user_show.size()) - 1);
-				EmpManage.up_label(lblxnm);
+				EmpContract.filter(textField.getText().trim(), textField_1
+						.getText().trim());
+				EmpContract.up_table(table, 0,
+						Math.min(10, AllObj.cont_show.size()) - 1);
+				EmpContract.up_label(lblxnm);
 			}
 		});
 		panel_2.add(btnNewButton);
 
-		JButton btnNewButton_1 = new JButton("\u65B0\u589E");
+		JButton btnNewButton_1 = new JButton("\u6DFB\u52A0\u5408\u540C");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				AllObj.jtb = table;
@@ -136,30 +135,87 @@ public class EmpContractFrame extends JFrame {
 		});
 		panel_2.add(btnNewButton_1);
 
-		JButton button = new JButton("\u4FEE\u6539");
-		button.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				int row = table.getSelectedRow();
-				if (row == -1) {
-					System.out.println("没有选择需要修改的记录！");
-					return;
-				}
-				AllObj.jtb = table;
-				AllObj.jlb = lblxnm;
-				new EmpModifyFrame(AllObj.user_show.get(10 * AllObj.page + row))
-						.setVisible(true);
-			}
-		});
-		panel_2.add(button);
-
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(10, 75, 745, 240);
 		panel_1.add(scrollPane);
 
 		table = new JTable();
+		table.addPropertyChangeListener(new PropertyChangeListener() {
+			public void propertyChange(PropertyChangeEvent arg0) {
+				int col = table.getSelectedColumn();
+				int row = table.getSelectedRow();
+				if (col == -1 || row == -1) {
+					return;
+				}
+				if (col == 4) {
+					String str = String.valueOf(table.getValueAt(row, col))
+							.trim();
+					SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+					if (!str.matches("^\\d{4}-\\d{2}-\\d{2}$")) {
+						System.out.println("时间不合法");
+						table.setValueAt(sdf.format(new Date()), row, col);
+						return;
+					}
+					try {
+						sdf.parse(str);
+					} catch (ParseException e) {
+						System.out.println("时间不合法");
+						table.setValueAt(sdf.format(new Date()), row, col);
+						return;
+					}
+					try {
+						table.setValueAt(sdf.format(sdf.parse(str)), row, col);
+					} catch (ParseException e) {
+						e.printStackTrace();
+					}
+				}
+				table.setValueAt("更新", row, 8);
+			}
+		});
+		table.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				if (arg0.getClickCount() == 2) {
+					int col = table.getSelectedColumn();
+					int row = table.getSelectedRow();
+					if (col == 8 && table.getValueAt(row, col).equals("双击更新")) {
+						AllObj.jtb = table;
+						AllObj.jlb = lblxnm;
+						String conname = table.getValueAt(row, 3).toString();
+						String condate = table.getValueAt(row, 4).toString();
+						int conyear = Integer.parseInt(table.getValueAt(row, 5)
+								.toString());
+						String contype = table.getValueAt(row, 6).toString();
+						String coninfo = table.getValueAt(row, 7).toString();
+						EmpContract.update(
+								AllObj.cont_show.get(10 * AllObj.page + row),
+								conname, condate, conyear, contype, coninfo);
+						EmpContract.up_table(
+								AllObj.jtb,
+								AllObj.page * 10,
+								Math.min(AllObj.page * 10 + 9,
+										AllObj.cont_show.size() - 1));
+						EmpContract.up_label(AllObj.jlb);
+					}
+					if (col == 9) {
+						AllObj.jtb = table;
+						AllObj.jlb = lblxnm;
+						EmpContract.delete(AllObj.cont_show.get(10
+								* AllObj.page + row));
+						EmpContract.up_table(
+								AllObj.jtb,
+								AllObj.page * 10,
+								Math.min(AllObj.page * 10 + 9,
+										AllObj.cont_show.size() - 1));
+						EmpContract.up_label(AllObj.jlb);
+					}
+				}
+			}
+		});
 		scrollPane.setViewportView(table);
-		table.setModel(new DefaultTableModel(new String[] { "ID", "姓名", "密码",
-				"部门", "职务", "性别", "电话" }, 0));
+		table.setModel(new DefaultTableModel(new String[] { "合同编号", "合同持有人",
+				"持有人部门", "合同名称", "签约时间", "合同年限", "合同性质", "合同内容", "编辑", "删除" },
+				0));
 		// 设置table内容居中
 		DefaultTableCellRenderer tcr = new DefaultTableCellRenderer();
 		tcr.setHorizontalAlignment(JLabel.CENTER);
@@ -175,11 +231,11 @@ public class EmpContractFrame extends JFrame {
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (--AllObj.page < 0) {
-					AllObj.page = (int) Math.ceil(AllObj.user_show.size() / 10.0) - 1;
+					AllObj.page = (int) Math.ceil(AllObj.cont_show.size() / 10.0) - 1;
 				}
-				EmpManage.up_table(table, AllObj.page * 10, Math.min(
-						AllObj.page * 10 + 9, AllObj.user_show.size() - 1));
-				EmpManage.up_label(lblxnm);
+				EmpContract.up_table(table, AllObj.page * 10, Math.min(
+						AllObj.page * 10 + 9, AllObj.cont_show.size() - 1));
+				EmpContract.up_label(lblxnm);
 			}
 		});
 		panel_3.add(btnNewButton_2);
@@ -187,12 +243,12 @@ public class EmpContractFrame extends JFrame {
 		JButton btnNewButton_3 = new JButton("\u4E0B\u4E00\u9875");
 		btnNewButton_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (++AllObj.page > Math.ceil(AllObj.user_show.size() / 10.0) - 1) {
+				if (++AllObj.page > Math.ceil(AllObj.cont_show.size() / 10.0) - 1) {
 					AllObj.page = 0;
 				}
-				EmpManage.up_table(table, AllObj.page * 10, Math.min(
-						AllObj.page * 10 + 9, AllObj.user_show.size() - 1));
-				EmpManage.up_label(lblxnm);
+				EmpContract.up_table(table, AllObj.page * 10, Math.min(
+						AllObj.page * 10 + 9, AllObj.cont_show.size() - 1));
+				EmpContract.up_label(lblxnm);
 			}
 		});
 		panel_3.add(btnNewButton_3);
@@ -208,13 +264,13 @@ public class EmpContractFrame extends JFrame {
 					return;
 				}
 				int x = Integer.parseInt(textField_2.getText().trim());
-				if (x < 1 || x > Math.ceil(AllObj.user_show.size() / 10.0)) {
+				if (x < 1 || x > Math.ceil(AllObj.cont_show.size() / 10.0)) {
 					return;
 				}
 				AllObj.page = x - 1;
-				EmpManage.up_table(table, AllObj.page * 10, Math.min(
-						AllObj.page * 10 + 9, AllObj.user_show.size() - 1));
-				EmpManage.up_label(lblxnm);
+				EmpContract.up_table(table, AllObj.page * 10, Math.min(
+						AllObj.page * 10 + 9, AllObj.cont_show.size() - 1));
+				EmpContract.up_label(lblxnm);
 			}
 		});
 		panel_3.add(btnGo);
@@ -223,17 +279,9 @@ public class EmpContractFrame extends JFrame {
 		panel_3.add(lblxnm);
 
 		// 动态加载
-		for (String x : AllObj.depname.values()) {
-			comboBox.addItem(x);
-		}
-		for (String x : AllObj.rankname.values()) {
-			comboBox_1.addItem(x);
-		}
-		for (int i = 0; i < Math.min(10, AllObj.user_show.size()); i++) {
-			((DefaultTableModel) table.getModel()).addRow(EmpManage
-					.E2V(AllObj.user_show.get(i)));
-		}
-		EmpManage.up_label(lblxnm);
+		EmpContract.up_table(table, 0,
+				Math.min(10, AllObj.cont_show.size()) - 1);
+		EmpContract.up_label(lblxnm);
 		// 扩展功能
 	}
 }

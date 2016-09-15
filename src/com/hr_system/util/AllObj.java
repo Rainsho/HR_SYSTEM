@@ -6,6 +6,7 @@ import java.util.HashMap;
 import javax.swing.JLabel;
 import javax.swing.JTable;
 
+import com.hr_system.bean.ContractBean;
 import com.hr_system.bean.EmployeeBean;
 
 public class AllObj {
@@ -18,5 +19,7 @@ public class AllObj {
 	public static int page = 0;
 	public static JTable jtb;
 	public static JLabel jlb;
+	public static ArrayList<ContractBean> cont_list = new ArrayList<ContractBean>();
+	public static ArrayList<ContractBean> cont_show = new ArrayList<ContractBean>();
 
 }

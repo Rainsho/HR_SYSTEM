@@ -54,7 +54,7 @@ public class WelcomeFrame extends JFrame {
 	 * Create the frame.
 	 */
 	public WelcomeFrame() {
-		final JFrame that = this;
+		//final JFrame that = this;
 		setTitle("HR\u7CFB\u7EDFv1.0");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 800, 500);
@@ -80,7 +80,7 @@ public class WelcomeFrame extends JFrame {
 		JMenuItem menuItem = new JMenuItem("\u5458\u5DE5\u7BA1\u7406");
 		menuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				that.dispose();
+				//that.dispose();
 				new EmpMangeFrame().setVisible(true);
 			}
 		});
@@ -89,7 +89,7 @@ public class WelcomeFrame extends JFrame {
 		JMenuItem menuItem_1 = new JMenuItem("\u6CE8\u518C\u7528\u6237");
 		menuItem_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				that.dispose();
+				//that.dispose();
 				new EmpRegistFrame().setVisible(true);
 			}
 		});
@@ -180,7 +180,7 @@ public class WelcomeFrame extends JFrame {
 		contentPane.add(panel_4);
 
 		final JLabel lblNewLabel_1 = new JLabel(
-				"\u4ECA\u5929\u5171\u6253\u5361X\u6B21\uFF0C\u5206\u522B\u4E3A\uFF1A");
+				"");
 		panel_4.add(lblNewLabel_1);
 		// lblNewLabel_1.setText("");
 

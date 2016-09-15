@@ -62,7 +62,7 @@ public class EmpMangeFrame extends JFrame {
 		EmpManage.load();
 
 		setTitle("HR\u7CFB\u7EDFv1.0");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 800, 500);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -119,14 +119,14 @@ public class EmpMangeFrame extends JFrame {
 
 		textField = new JTextField();
 		panel_2.add(textField);
-		textField.setColumns(8);
+		textField.setColumns(2);
 
 		JLabel lblNewLabel_1 = new JLabel("\u7535\u8BDD\uFF1A");
 		panel_2.add(lblNewLabel_1);
 
 		textField_1 = new JTextField();
 		panel_2.add(textField_1);
-		textField_1.setColumns(8);
+		textField_1.setColumns(2);//原始值是8，在macos下后面的按钮会被迫排到下一行，暂时改成2#兼容性#
 
 		JLabel lblNewLabel_2 = new JLabel("\u90E8\u95E8\uFF1A");
 		panel_2.add(lblNewLabel_2);
