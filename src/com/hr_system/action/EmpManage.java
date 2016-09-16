@@ -33,6 +33,7 @@ public class EmpManage {
 			ORM.rs = ORM.sta.executeQuery("select * from employee");
 			AllObj.user_list.clear();
 			AllObj.user_show.clear();
+			AllObj.page = 0;
 			while (ORM.rs.next()) {
 				EmployeeBean obj = new EmployeeBean(ORM.rs.getInt(1),
 						ORM.rs.getInt(2), ORM.rs.getInt(3), ORM.rs.getInt(4),

@@ -22,6 +22,7 @@ import com.hr_system.action.EmpManage;
 import com.hr_system.action.Training;
 import com.hr_system.bean.TrainingPlanBean;
 import com.hr_system.util.AllObj;
+import com.hr_system.util.Tools;
 
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
@@ -30,6 +31,13 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import javax.swing.JRadioButton;
+
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import javax.swing.event.ChangeListener;
+import javax.swing.event.ChangeEvent;
 
 public class TrainingPlanFrame extends JFrame {
 
@@ -144,8 +152,14 @@ public class TrainingPlanFrame extends JFrame {
 		table.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				if (table.getSelectedRow() == -1
+						|| table.getSelectedColumn() == -1
+						|| !radioButton.isSelected()) {
+					return;
+				}
 				// 清空jtextfield
 				Training.clearpanel(panel_4);
+				t_trpinfo.setText("");// 不在panel_4
 				// 填充jtextfield
 				TrainingPlanBean obj = AllObj.trin_show.get(table
 						.getSelectedRow());
@@ -223,6 +237,19 @@ public class TrainingPlanFrame extends JFrame {
 		panel_4.add(label_7);
 
 		t_trpdate = new JTextField();
+		t_trpdate.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent arg0) {
+				// 检查日期合法性
+				if (Tools.checkdate(t_trpdate.getText().trim()) == null) {
+					t_trpdate.setText(new SimpleDateFormat("yyyy-MM-dd")
+							.format(new Date()));
+				} else {
+					t_trpdate.setText(Tools.checkdate(t_trpdate.getText()
+							.trim()));
+				}
+			}
+		});
 		t_trpdate.setColumns(10);
 		t_trpdate.setBounds(94, 74, 254, 28);
 		panel_4.add(t_trpdate);
@@ -259,12 +286,75 @@ public class TrainingPlanFrame extends JFrame {
 		button_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (radioButton.isSelected()) {
-					// to be done
-					System.out.println("modify");
+					int col = table.getSelectedColumn();
+					int row = table.getSelectedRow();
+					// 检查是否选中修改对象
+					if (row == -1 || col == -1) {
+						System.out.println("未选择要修改的培训计划");
+						return;
+					}
+					// 检查日期是否非法
+					if (Tools.checkdate(t_trpdate.getText().trim()) == null) {
+						return;
+					}
+					// 修改obj
+					obj = AllObj.trin_show.get(row);
+					obj.setDepname(comboBox_1.getSelectedItem().toString()
+							.trim());
+					for (Integer x : AllObj.depname.keySet()) {
+						if (AllObj.depname.get(x).equals(obj.getDepname())) {
+							obj.setDepid(x);
+							break;
+						}
+					}
+					obj.setTrppeople(t_trppeople.getText().trim());
+					obj.setTrpname(t_trpname.getText().trim());
+					obj.setTrpadmin(t_trpadmin.getText().trim());
+					obj.setTrpfee(Integer.parseInt(t_trpfee.getText().trim()));
+					obj.setTrpdate(Tools.checkdate(t_trpdate.getText().trim()));
+					obj.setTrpmonth(Integer.parseInt(t_trpmonth.getText()
+							.trim()));
+					obj.setTrpplace(t_trpplace.getText().trim());
+					obj.setTrpinfo(t_trpinfo.getText().trim());
+					// 更新数据库
 					Training.update(obj);
+					Training.up_table(table);
 				} else {
-					System.out.println("add");
+					// 检查日期是否非法
+					if (Tools.checkdate(t_trpdate.getText().trim()) == null) {
+						return;
+					}
+					// 检查是否有空textfield
+					if (Training.panelhasempty(panel_4)
+							|| t_trpinfo.getText().trim().equals("")) {
+						System.out.println("培训信息不完整");
+						return;
+					}
+					// 新建obj
+					TrainingPlanBean obj = new TrainingPlanBean();
+					obj.setDepname(comboBox_1.getSelectedItem().toString()
+							.trim());
+					for (Integer x : AllObj.depname.keySet()) {
+						if (AllObj.depname.get(x).equals(obj.getDepname())) {
+							obj.setDepid(x);
+							break;
+						}
+					}
+					obj.setTrppeople(t_trppeople.getText().trim());
+					obj.setTrpname(t_trpname.getText().trim());
+					obj.setTrpadmin(t_trpadmin.getText().trim());
+					obj.setTrpfee(Integer.parseInt(t_trpfee.getText().trim()));
+					obj.setTrpdate(Tools.checkdate(t_trpdate.getText().trim()));
+					obj.setTrpmonth(Integer.parseInt(t_trpmonth.getText()
+							.trim()));
+					obj.setTrpplace(t_trpplace.getText().trim());
+					obj.setTrpinfo(t_trpinfo.getText().trim());
+					// 更新数据库
 					Training.add(obj);
+					Training.clearpanel(panel_4);
+					t_trpinfo.setText("");// 不在panel_4
+					Training.up_table(table);
+					radioButton.setSelected(true);
 				}
 			}
 		});
@@ -291,22 +381,29 @@ public class TrainingPlanFrame extends JFrame {
 		panel_4.add(comboBox_1);
 
 		radioButton = new JRadioButton("\u4FEE\u6539");
-		radioButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				button_1.setText("修改培训");
-				table.setRowSelectionAllowed(true);
+		radioButton.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent arg0) {
+				if (radioButton.isSelected()) {
+					button_1.setText("修改培训");
+					table.setEnabled(true);
+					table.setRowSelectionAllowed(true);
+				}
 			}
 		});
 		radioButton.setSelected(true);
 		radioButton.setBounds(378, 156, 60, 23);
 		panel_4.add(radioButton);
 
-		JRadioButton radioButton_1 = new JRadioButton("\u65B0\u589E");
-		radioButton_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				button_1.setText("新增培训");
-				table.setRowSelectionAllowed(false);
-				Training.clearpanel(panel_4);
+		final JRadioButton radioButton_1 = new JRadioButton("\u65B0\u589E");
+		radioButton_1.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent e) {
+				if (radioButton_1.isSelected()) {
+					button_1.setText("新增培训");
+					table.setRowSelectionAllowed(false);
+					table.setEnabled(false);
+					Training.clearpanel(panel_4);
+					t_trpinfo.setText("");// 不在panel_4
+				}
 			}
 		});
 		radioButton_1.setBounds(452, 156, 60, 23);

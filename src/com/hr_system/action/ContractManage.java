@@ -19,6 +19,9 @@ public class ContractManage {
 			ORM.sta = ORM.con.createStatement();
 			ORM.rs = ORM.sta
 					.executeQuery("select a.*, b.uname, c.depname from contract as a, employee as b, department as c where a.uid=b.uid and b.depid=c.depid");
+			AllObj.cont_list.clear();
+			AllObj.cont_show.clear();
+			AllObj.page = 0;
 			while (ORM.rs.next()) {
 				ContractBean obj = new ContractBean(ORM.rs.getInt(1),
 						ORM.rs.getString(8), ORM.rs.getString(9),

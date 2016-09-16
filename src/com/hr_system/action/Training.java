@@ -20,6 +20,8 @@ public class Training {
 			ORM.sta = ORM.con.createStatement();
 			ORM.rs = ORM.sta
 					.executeQuery("select a.*, b.depname from trainingplan as a, department as b where a.depid=b.depid");
+			AllObj.trin_list.clear();
+			AllObj.trin_show.clear();
 			while (ORM.rs.next()) {
 				TrainingPlanBean obj = new TrainingPlanBean(ORM.rs.getInt(1),
 						ORM.rs.getInt(2), ORM.rs.getString(3),
@@ -72,18 +74,17 @@ public class Training {
 				((JTextField) x).setText("");
 			}
 		}
-
 	}
 
 	public static void delete(TrainingPlanBean obj) {
 		try {
 			ORM.con();
 			ORM.pst = ORM.con
-					.prepareStatement("delete from employee where uid=?");
+					.prepareStatement("delete from trainingplan where trpid=?");
 			ORM.pst.setInt(1, obj.getTrpid());
 			ORM.pst.execute();
-			AllObj.user_list.remove(obj);
-			AllObj.user_show.remove(obj);
+			AllObj.trin_list.remove(obj);
+			AllObj.trin_show.remove(obj);
 			System.out.println("删除成功！");
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -93,12 +94,80 @@ public class Training {
 	}
 
 	public static void update(TrainingPlanBean obj) {
-		// TODO Auto-generated method stub
-		
+		try {
+			ORM.con();
+			ORM.pst = ORM.con
+					.prepareStatement("update trainingplan set depid=?, trppeople=?, trpname=?, trpinfo=?, trpadmin=?, trpplace=?, trpfee=?, trpdate=?, trpmonth=? where trpid=?");
+			ORM.pst.setInt(1, obj.getDepid());
+			ORM.pst.setString(2, obj.getTrppeople());
+			ORM.pst.setString(3, obj.getTrpname());
+			ORM.pst.setString(4, obj.getTrpinfo());
+			ORM.pst.setString(5, obj.getTrpadmin());
+			ORM.pst.setString(6, obj.getTrpplace());
+			ORM.pst.setInt(7, obj.getTrpfee());
+			ORM.pst.setString(8, obj.getTrpdate());
+			ORM.pst.setInt(9, obj.getTrpmonth());
+			ORM.pst.setInt(10, obj.getTrpid());
+			ORM.pst.execute();
+			System.out.println("修改成功");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			ORM.close();
+		}
+
 	}
 
 	public static void add(TrainingPlanBean obj) {
-		// TODO Auto-generated method stub
-		
+		try {
+			ORM.con();
+			ORM.pst = ORM.con
+					.prepareStatement("insert into trainingplan (depid, trppeople, trpname, trpinfo, trpadmin, trpplace, trpfee, trpdate, trpmonth) values (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+			ORM.pst.setInt(1, obj.getDepid());
+			ORM.pst.setString(2, obj.getTrppeople());
+			ORM.pst.setString(3, obj.getTrpname());
+			ORM.pst.setString(4, obj.getTrpinfo());
+			ORM.pst.setString(5, obj.getTrpadmin());
+			ORM.pst.setString(6, obj.getTrpplace());
+			ORM.pst.setInt(7, obj.getTrpfee());
+			ORM.pst.setString(8, obj.getTrpdate());
+			ORM.pst.setInt(9, obj.getTrpmonth());
+			ORM.pst.execute();
+			// update obj
+			ORM.pst = ORM.con
+					.prepareStatement("select trpid from trainingplan where depid=? and trppeople=? and trpname=? and trpinfo=? and trpadmin=? and trpplace=? and trpfee=? and trpdate=? and trpmonth=?");
+			ORM.pst.setInt(1, obj.getDepid());
+			ORM.pst.setString(2, obj.getTrppeople());
+			ORM.pst.setString(3, obj.getTrpname());
+			ORM.pst.setString(4, obj.getTrpinfo());
+			ORM.pst.setString(5, obj.getTrpadmin());
+			ORM.pst.setString(6, obj.getTrpplace());
+			ORM.pst.setInt(7, obj.getTrpfee());
+			ORM.pst.setString(8, obj.getTrpdate());
+			ORM.pst.setInt(9, obj.getTrpmonth());
+			ORM.rs = ORM.pst.executeQuery();
+			ORM.rs.next();
+			obj.setTrpid(ORM.rs.getInt(1));
+			AllObj.trin_list.add(obj);
+			AllObj.trin_show.add(obj);
+			System.out.println("添加成功");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			ORM.close();
+		}
+	}
+
+	public static boolean panelhasempty(JPanel panel) {
+		Component[] comp = panel.getComponents();
+		for (Component x : comp) {
+			if (x.getClass().getName().equals("javax.swing.JTextField")) {
+				if (((JTextField) x).getText().trim().equals("")
+						&& (((JTextField) x).isEditable())) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 }
