@@ -11,7 +11,7 @@ import com.hr_system.bean.ContractBean;
 import com.hr_system.util.AllObj;
 import com.hr_system.util.ORM;
 
-public class EmpContract {
+public class ContractManage {
 
 	public static void load() {
 		try {

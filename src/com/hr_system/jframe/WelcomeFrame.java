@@ -13,7 +13,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JLabel;
 
 import com.hr_system.action.Welcome;
-import com.hr_system.jframe.hrmange.EmpMangeFrame;
+import com.hr_system.jframe.hrmange.EmpManageFrame;
 import com.hr_system.jframe.hrmange.EmpRegistFrame;
 import com.hr_system.util.AllObj;
 
@@ -81,7 +81,7 @@ public class WelcomeFrame extends JFrame {
 		menuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//that.dispose();
-				new EmpMangeFrame().setVisible(true);
+				new EmpManageFrame().setVisible(true);
 			}
 		});
 		mnNewMenu.add(menuItem);

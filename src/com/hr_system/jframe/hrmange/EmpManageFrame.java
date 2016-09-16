@@ -26,7 +26,7 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class EmpMangeFrame extends JFrame {
+public class EmpManageFrame extends JFrame {
 
 	/**
 	 * 
@@ -46,7 +46,7 @@ public class EmpMangeFrame extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					EmpMangeFrame frame = new EmpMangeFrame();
+					EmpManageFrame frame = new EmpManageFrame();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -58,7 +58,7 @@ public class EmpMangeFrame extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public EmpMangeFrame() {
+	public EmpManageFrame() {
 		EmpManage.load();
 
 		setTitle("HR\u7CFB\u7EDFv1.0");

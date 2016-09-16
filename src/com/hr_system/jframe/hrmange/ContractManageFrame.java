@@ -13,7 +13,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JLabel;
 
-import com.hr_system.action.EmpContract;
+import com.hr_system.action.ContractManage;
 import com.hr_system.util.AllObj;
 
 import javax.swing.JScrollPane;
@@ -34,7 +34,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class EmpContractFrame extends JFrame {
+public class ContractManageFrame extends JFrame {
 
 	/**
 	 * 
@@ -54,7 +54,7 @@ public class EmpContractFrame extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					EmpContractFrame frame = new EmpContractFrame();
+					ContractManageFrame frame = new ContractManageFrame();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -66,8 +66,8 @@ public class EmpContractFrame extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public EmpContractFrame() {
-		EmpContract.load();
+	public ContractManageFrame() {
+		ContractManage.load();
 
 		setTitle("HR\u7CFB\u7EDFv1.0");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -116,11 +116,11 @@ public class EmpContractFrame extends JFrame {
 		JButton btnNewButton = new JButton("\u67E5\u8BE2");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				EmpContract.filter(textField.getText().trim(), textField_1
+				ContractManage.filter(textField.getText().trim(), textField_1
 						.getText().trim());
-				EmpContract.up_table(table, 0,
+				ContractManage.up_table(table, 0,
 						Math.min(10, AllObj.cont_show.size()) - 1);
-				EmpContract.up_label(lblxnm);
+				ContractManage.up_label(lblxnm);
 			}
 		});
 		panel_2.add(btnNewButton);
@@ -187,27 +187,27 @@ public class EmpContractFrame extends JFrame {
 								.toString());
 						String contype = table.getValueAt(row, 6).toString();
 						String coninfo = table.getValueAt(row, 7).toString();
-						EmpContract.update(
+						ContractManage.update(
 								AllObj.cont_show.get(10 * AllObj.page + row),
 								conname, condate, conyear, contype, coninfo);
-						EmpContract.up_table(
+						ContractManage.up_table(
 								AllObj.jtb,
 								AllObj.page * 10,
 								Math.min(AllObj.page * 10 + 9,
 										AllObj.cont_show.size() - 1));
-						EmpContract.up_label(AllObj.jlb);
+						ContractManage.up_label(AllObj.jlb);
 					}
 					if (col == 9) {
 						AllObj.jtb = table;
 						AllObj.jlb = lblxnm;
-						EmpContract.delete(AllObj.cont_show.get(10
+						ContractManage.delete(AllObj.cont_show.get(10
 								* AllObj.page + row));
-						EmpContract.up_table(
+						ContractManage.up_table(
 								AllObj.jtb,
 								AllObj.page * 10,
 								Math.min(AllObj.page * 10 + 9,
 										AllObj.cont_show.size() - 1));
-						EmpContract.up_label(AllObj.jlb);
+						ContractManage.up_label(AllObj.jlb);
 					}
 				}
 			}
@@ -233,9 +233,9 @@ public class EmpContractFrame extends JFrame {
 				if (--AllObj.page < 0) {
 					AllObj.page = (int) Math.ceil(AllObj.cont_show.size() / 10.0) - 1;
 				}
-				EmpContract.up_table(table, AllObj.page * 10, Math.min(
+				ContractManage.up_table(table, AllObj.page * 10, Math.min(
 						AllObj.page * 10 + 9, AllObj.cont_show.size() - 1));
-				EmpContract.up_label(lblxnm);
+				ContractManage.up_label(lblxnm);
 			}
 		});
 		panel_3.add(btnNewButton_2);
@@ -246,9 +246,9 @@ public class EmpContractFrame extends JFrame {
 				if (++AllObj.page > Math.ceil(AllObj.cont_show.size() / 10.0) - 1) {
 					AllObj.page = 0;
 				}
-				EmpContract.up_table(table, AllObj.page * 10, Math.min(
+				ContractManage.up_table(table, AllObj.page * 10, Math.min(
 						AllObj.page * 10 + 9, AllObj.cont_show.size() - 1));
-				EmpContract.up_label(lblxnm);
+				ContractManage.up_label(lblxnm);
 			}
 		});
 		panel_3.add(btnNewButton_3);
@@ -268,9 +268,9 @@ public class EmpContractFrame extends JFrame {
 					return;
 				}
 				AllObj.page = x - 1;
-				EmpContract.up_table(table, AllObj.page * 10, Math.min(
+				ContractManage.up_table(table, AllObj.page * 10, Math.min(
 						AllObj.page * 10 + 9, AllObj.cont_show.size() - 1));
-				EmpContract.up_label(lblxnm);
+				ContractManage.up_label(lblxnm);
 			}
 		});
 		panel_3.add(btnGo);
@@ -279,9 +279,9 @@ public class EmpContractFrame extends JFrame {
 		panel_3.add(lblxnm);
 
 		// 动态加载
-		EmpContract.up_table(table, 0,
+		ContractManage.up_table(table, 0,
 				Math.min(10, AllObj.cont_show.size()) - 1);
-		EmpContract.up_label(lblxnm);
+		ContractManage.up_label(lblxnm);
 		// 扩展功能
 	}
 }
