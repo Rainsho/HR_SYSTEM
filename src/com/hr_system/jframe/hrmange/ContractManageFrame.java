@@ -130,7 +130,7 @@ public class ContractManageFrame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				AllObj.jtb = table;
 				AllObj.jlb = lblxnm;
-				new EmpRegistFrame().setVisible(true);
+				new ContractRegistFrame().setVisible(true);
 			}
 		});
 		panel_2.add(btnNewButton_1);
@@ -169,7 +169,7 @@ public class ContractManageFrame extends JFrame {
 						e.printStackTrace();
 					}
 				}
-				table.setValueAt("更新", row, 8);
+				table.setValueAt("双击更新", row, 8);
 			}
 		});
 		table.addMouseListener(new MouseAdapter() {

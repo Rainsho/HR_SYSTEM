@@ -142,4 +142,39 @@ public class ContractManage {
 		}
 	}
 
+	public static void add(ContractBean obj) {
+		try {
+			ORM.con();
+			ORM.pst = ORM.con
+					.prepareStatement("insert into contract (uid, conname, condate, conyear, contype, coninfo) values (?, ?, ?, ?, ?, ?)");
+			ORM.pst.setInt(1, obj.getUid());
+			ORM.pst.setString(2, obj.getConname());
+			ORM.pst.setString(3, obj.getCondate());
+			ORM.pst.setInt(4, obj.getConyear());
+			ORM.pst.setString(5, obj.getContype());
+			ORM.pst.setString(6, obj.getConinfo());
+			ORM.pst.execute();
+			// 更新数据库返回的uid
+			ORM.pst = ORM.con
+					.prepareStatement("select conid from contract where uid=? and conname=? and condate=? and conyear=? and contype=? and coninfo=?");
+			ORM.pst.setInt(1, obj.getUid());
+			ORM.pst.setString(2, obj.getConname());
+			ORM.pst.setString(3, obj.getCondate());
+			ORM.pst.setInt(4, obj.getConyear());
+			ORM.pst.setString(5, obj.getContype());
+			ORM.pst.setString(6, obj.getConinfo());
+			ORM.rs = ORM.pst.executeQuery();
+			ORM.rs.next();
+			obj.setConid(ORM.rs.getInt(1));
+			// 加入总员工数组
+			AllObj.cont_list.add(obj);
+			AllObj.cont_show.add(obj);
+			System.out.println("添加成功");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			ORM.close();
+		}
+	}
+
 }
