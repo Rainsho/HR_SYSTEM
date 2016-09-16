@@ -8,6 +8,7 @@ import javax.swing.JTable;
 
 import com.hr_system.bean.ContractBean;
 import com.hr_system.bean.EmployeeBean;
+import com.hr_system.bean.TrainingPlanBean;
 
 public class AllObj {
 	public static EmployeeBean user;
@@ -21,5 +22,7 @@ public class AllObj {
 	public static JLabel jlb;
 	public static ArrayList<ContractBean> cont_list = new ArrayList<ContractBean>();
 	public static ArrayList<ContractBean> cont_show = new ArrayList<ContractBean>();
+	public static ArrayList<TrainingPlanBean> trin_list = new ArrayList<TrainingPlanBean>();
+	public static ArrayList<TrainingPlanBean> trin_show = new ArrayList<TrainingPlanBean>();
 
 }

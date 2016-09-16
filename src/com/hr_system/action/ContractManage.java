@@ -51,7 +51,6 @@ public class ContractManage {
 		return vec;
 	}
 
-	@SuppressWarnings("serial")
 	public static void up_table(JTable table, int s, int t) {
 		String[] col = new String[] { "合同编号", "合同持有人", "持有人部门", "合同名称", "签约时间",
 				"合同年限", "合同性质", "合同内容", "编辑", "删除" };
@@ -60,6 +59,8 @@ public class ContractManage {
 			row[i] = C2V(AllObj.cont_show.get(s + i)).toArray(row[i]);
 		}
 		table.setModel(new DefaultTableModel(row, col) {
+			private static final long serialVersionUID = 1L;
+
 			@Override
 			public boolean isCellEditable(int row, int column) {
 				if (column < 3 || column > 7) {

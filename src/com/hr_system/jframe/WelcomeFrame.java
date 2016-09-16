@@ -6,13 +6,16 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JMenuBar;
+
 import java.awt.FlowLayout;
+
 import javax.swing.JMenu;
 import javax.swing.border.TitledBorder;
 import javax.swing.JMenuItem;
 import javax.swing.JLabel;
 
 import com.hr_system.action.Welcome;
+import com.hr_system.jframe.hrmange.ContractManageFrame;
 import com.hr_system.jframe.hrmange.EmpManageFrame;
 import com.hr_system.jframe.hrmange.EmpRegistFrame;
 import com.hr_system.util.AllObj;
@@ -21,8 +24,11 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+
 import javax.swing.UIManager;
+
 import java.awt.Color;
+
 import javax.swing.JTextPane;
 import javax.swing.JButton;
 
@@ -54,7 +60,7 @@ public class WelcomeFrame extends JFrame {
 	 * Create the frame.
 	 */
 	public WelcomeFrame() {
-		//final JFrame that = this;
+		// final JFrame that = this;
 		setTitle("HR\u7CFB\u7EDFv1.0");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 800, 500);
@@ -80,7 +86,7 @@ public class WelcomeFrame extends JFrame {
 		JMenuItem menuItem = new JMenuItem("\u5458\u5DE5\u7BA1\u7406");
 		menuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//that.dispose();
+				// that.dispose();
 				new EmpManageFrame().setVisible(true);
 			}
 		});
@@ -89,16 +95,22 @@ public class WelcomeFrame extends JFrame {
 		JMenuItem menuItem_1 = new JMenuItem("\u6CE8\u518C\u7528\u6237");
 		menuItem_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//that.dispose();
+				// that.dispose();
 				new EmpRegistFrame().setVisible(true);
 			}
 		});
 		mnNewMenu.add(menuItem_1);
 
 		JMenuItem menuItem_2 = new JMenuItem("\u4EBA\u4E8B\u53D8\u52A8");
+		menuItem_2.setEnabled(false);
 		mnNewMenu.add(menuItem_2);
 
 		JMenuItem menuItem_3 = new JMenuItem("\u5408\u540C\u7BA1\u7406");
+		menuItem_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				new ContractManageFrame().setVisible(true);
+			}
+		});
 		mnNewMenu.add(menuItem_3);
 
 		JMenu mnNewMenu_1 = new JMenu("\u57F9\u8BAD\u7BA1\u7406");
@@ -179,8 +191,7 @@ public class WelcomeFrame extends JFrame {
 		panel_4.setBounds(20, 400, 745, 20);
 		contentPane.add(panel_4);
 
-		final JLabel lblNewLabel_1 = new JLabel(
-				"");
+		final JLabel lblNewLabel_1 = new JLabel("");
 		panel_4.add(lblNewLabel_1);
 		// lblNewLabel_1.setText("");
 
