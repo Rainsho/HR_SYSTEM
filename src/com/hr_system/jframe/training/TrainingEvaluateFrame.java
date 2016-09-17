@@ -29,7 +29,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class TrainingApplyFrame extends JFrame {
+public class TrainingEvaluateFrame extends JFrame {
 
 	/**
 	 * 
@@ -59,7 +59,7 @@ public class TrainingApplyFrame extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					TrainingApplyFrame frame = new TrainingApplyFrame();
+					TrainingEvaluateFrame frame = new TrainingEvaluateFrame();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -71,7 +71,7 @@ public class TrainingApplyFrame extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public TrainingApplyFrame() {
+	public TrainingEvaluateFrame() {
 
 		// 预留菜单位置****
 		setTitle("HR\u7CFB\u7EDFv1.0");
@@ -93,7 +93,7 @@ public class TrainingApplyFrame extends JFrame {
 		// 预留内容位置****
 		JPanel panel_1 = new JPanel();
 		panel_1.setBorder(new TitledBorder(new EtchedBorder(
-				EtchedBorder.LOWERED, null, null), "\u57F9\u8BAD\u7533\u8BF7",
+				EtchedBorder.LOWERED, null, null), "\u57F9\u8BAD\u8BC4\u4F30",
 				TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panel_1.setBounds(10, 60, 765, 380);
 		contentPane.add(panel_1);
@@ -139,6 +139,26 @@ public class TrainingApplyFrame extends JFrame {
 			}
 		});
 		panel_2.add(btnNewButton);
+
+		final JButton button_1 = new JButton("\u57F9\u8BAD\u8BC4\u4F30");
+		panel_2.add(button_1);
+		button_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (AllObj.user == null) {
+					System.out.println("请先登陆");
+					return;// 下次直接disable掉
+				}
+				if (table.getSelectedRow() == -1
+						|| table.getSelectedColumn() == -1) {
+					System.out.println("请选择欲提交评估的培训");
+					return;
+				}
+				// 后台处理
+				TrainingPlanBean obj = AllObj.trin_show.get(table
+						.getSelectedRow());
+				new TrainingTextFrame("培训评估", obj).setVisible(true);
+			}
+		});
 
 		JPanel panel_3 = new JPanel();
 		panel_3.setBounds(10, 75, 745, 290);
@@ -274,67 +294,13 @@ public class TrainingApplyFrame extends JFrame {
 		JPanel panel_5 = new JPanel();
 		panel_5.setBorder(new TitledBorder(null, "\u57F9\u8BAD\u5185\u5BB9",
 				TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel_5.setBounds(20, 142, 328, 130);
+		panel_5.setBounds(20, 142, 502, 130);
 		panel_4.add(panel_5);
 		panel_5.setLayout(new GridLayout(0, 1, 0, 0));
 
 		t_trpinfo = new JTextPane();
 		t_trpinfo.setEditable(false);
 		panel_5.add(t_trpinfo);
-
-		final JButton button_1 = new JButton("\u7533\u8BF7\u57F9\u8BAD");
-		button_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (AllObj.user == null) {
-					System.out.println("请先登陆");
-					return;// 下次直接disable掉
-				}
-				String str = t_appname.getText().trim();
-				if (str.equals("") || table.getSelectedRow() == -1
-						|| table.getSelectedColumn() == -1) {
-					System.out.println("请选择欲申请的培训");
-					return;
-				}
-				if (!str.equals("未申请")) {
-					System.out.println("已申请，请等待审核");
-					return;
-				}
-				// 后台处理
-				TrainingPlanBean obj = AllObj.trin_show.get(table
-						.getSelectedRow());
-				if (AllObj.trp_in.keySet().contains(obj.getTrpid())) {
-					TrainingApply.update(obj, 1);
-				} else {
-					TrainingApply.add(obj);
-				}
-				t_appname.setText("已申请");
-			}
-		});
-		button_1.setBounds(388, 191, 117, 29);
-		panel_4.add(button_1);
-
-		final JButton button_2 = new JButton("\u53D6\u6D88\u7533\u8BF7");
-		button_2.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (AllObj.user == null) {
-					System.out.println("请先登陆");
-					return;
-				}
-				if (t_appname.getText().trim().equals("")
-						|| t_appname.getText().trim().equals("未申请")) {
-					System.out.println("您未申请该培训");
-					return;
-				}
-				// 后台处理
-				TrainingPlanBean obj = AllObj.trin_show.get(table
-						.getSelectedRow());
-				TrainingApply.update(obj, 4);
-				Training.up_table(table);
-				t_appname.setText("未申请");
-			}
-		});
-		button_2.setBounds(388, 232, 117, 29);
-		panel_4.add(button_2);
 
 		JLabel label_10 = new JLabel("\u7533\u8BF7\u72B6\u6001\uFF1A");
 		label_10.setBounds(368, 114, 70, 16);

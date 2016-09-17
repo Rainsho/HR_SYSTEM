@@ -19,6 +19,8 @@ import com.hr_system.jframe.hrmange.ContractManageFrame;
 import com.hr_system.jframe.hrmange.EmpManageFrame;
 import com.hr_system.jframe.hrmange.EmpRegistFrame;
 import com.hr_system.jframe.training.TrainingApplyFrame;
+import com.hr_system.jframe.training.TrainingEvaluateFrame;
+import com.hr_system.jframe.training.TrainingFeedbackFrame;
 import com.hr_system.jframe.training.TrainingPlanFrame;
 import com.hr_system.util.AllObj;
 
@@ -134,10 +136,24 @@ public class WelcomeFrame extends JFrame {
 		});
 		mnNewMenu_1.add(menuItem_5);
 
+		JMenuItem menuItem_13 = new JMenuItem("\u7533\u8BF7\u5BA1\u6838");
+		menuItem_13.setEnabled(false);
+		mnNewMenu_1.add(menuItem_13);
+
 		JMenuItem menuItem_6 = new JMenuItem("\u57F9\u8BAD\u8BC4\u4EF7");
+		menuItem_6.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new TrainingEvaluateFrame().setVisible(true);
+			}
+		});
 		mnNewMenu_1.add(menuItem_6);
 
 		JMenuItem menuItem_7 = new JMenuItem("\u57F9\u8BAD\u53CD\u9988");
+		menuItem_7.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new TrainingFeedbackFrame().setVisible(true);
+			}
+		});
 		mnNewMenu_1.add(menuItem_7);
 
 		JMenu mnNewMenu_2 = new JMenu("\u85AA\u916C\u7BA1\u7406");
