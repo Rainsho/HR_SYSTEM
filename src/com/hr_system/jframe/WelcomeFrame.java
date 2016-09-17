@@ -18,6 +18,7 @@ import com.hr_system.action.Welcome;
 import com.hr_system.jframe.hrmange.ContractManageFrame;
 import com.hr_system.jframe.hrmange.EmpManageFrame;
 import com.hr_system.jframe.hrmange.EmpRegistFrame;
+import com.hr_system.jframe.training.TrainingApplyFrame;
 import com.hr_system.jframe.training.TrainingPlanFrame;
 import com.hr_system.util.AllObj;
 
@@ -126,6 +127,11 @@ public class WelcomeFrame extends JFrame {
 		mnNewMenu_1.add(menuItem_4);
 
 		JMenuItem menuItem_5 = new JMenuItem("\u57F9\u8BAD\u7533\u8BF7");
+		menuItem_5.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				new TrainingApplyFrame().setVisible(true);
+			}
+		});
 		mnNewMenu_1.add(menuItem_5);
 
 		JMenuItem menuItem_6 = new JMenuItem("\u57F9\u8BAD\u8BC4\u4EF7");

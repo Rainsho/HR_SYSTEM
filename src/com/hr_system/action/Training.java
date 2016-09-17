@@ -32,6 +32,11 @@ public class Training {
 				AllObj.trin_list.add(obj);
 				AllObj.trin_show.add(obj);
 			}
+			// º”‘ÿ…Í«Î◊¥Ã¨£¨apply”√
+			ORM.rs = ORM.sta.executeQuery("select * from applystate");
+			while (ORM.rs.next()) {
+				AllObj.appname.put(ORM.rs.getInt(1), ORM.rs.getString(2));
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
