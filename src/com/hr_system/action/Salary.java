@@ -24,6 +24,8 @@ public class Salary {
 			}
 			// load salary bean list
 			ORM.rs = ORM.sta.executeQuery("select * from salary");
+			AllObj.sala_list.clear();
+			AllObj.sala_show.clear();
 			while (ORM.rs.next()) {
 				SalaryBean obj = new SalaryBean(ORM.rs.getInt(1),
 						ORM.rs.getInt(2), ORM.rs.getInt(3), ORM.rs.getInt(4),
@@ -173,4 +175,41 @@ public class Salary {
 		}
 	}
 
+	public static void up_table_q(JTable table) {
+		String[] col = new String[] { "月份", "员工部门", "员工姓名", "薪酬状态", "基本工资",
+				"住房公积金", "基本养老", "健康保险", "失业保险", "报销款", "绩效奖", "合计" };
+		String[][] row = new String[AllObj.sala_show.size()][col.length];
+		for (int i = 0; i < row.length; i++) {
+			Vector<String> vec = new Vector<String>();
+			vec.add(AllObj.sala_show.get(i).getSaldate() + "");
+			vec.add(AllObj.depname.get(AllObj.user_map.get(
+					AllObj.sala_show.get(i).getUid()).getDepid()));
+			vec.add(AllObj.user_map.get(AllObj.sala_show.get(i).getUid())
+					.getUname());
+			vec.add(AllObj.appname.get(AllObj.sala_show.get(i).getAppid()));
+			vec.add(AllObj.sala_show.get(i).getSalbasic() + "");
+			vec.add(AllObj.sala_show.get(i).getSalhouse() + "");
+			vec.add(AllObj.sala_show.get(i).getSalold() + "");
+			vec.add(AllObj.sala_show.get(i).getSalhealth() + "");
+			vec.add(AllObj.sala_show.get(i).getSalemp() + "");
+			vec.add(AllObj.sala_show.get(i).getSalrefund() + "");
+			vec.add(AllObj.sala_show.get(i).getSalperformance() + "");
+			vec.add((AllObj.sala_show.get(i).getSalbasic()
+					+ AllObj.sala_show.get(i).getSalhouse()
+					+ AllObj.sala_show.get(i).getSalold()
+					+ AllObj.sala_show.get(i).getSalhealth()
+					+ AllObj.sala_show.get(i).getSalemp()
+					+ AllObj.sala_show.get(i).getSalrefund() + AllObj.sala_show
+					.get(i).getSalperformance()) + "");
+			row[i] = vec.toArray(row[i]);
+		}
+		table.setModel(new DefaultTableModel(row, col) {
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public boolean isCellEditable(int row, int col) {
+				return false;
+			}
+		});
+	}
 }

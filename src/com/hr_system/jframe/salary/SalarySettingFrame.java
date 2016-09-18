@@ -375,15 +375,19 @@ public class SalarySettingFrame extends JFrame {
 		for (String x : AllObj.depname.values()) {
 			comboBox_dep.addItem(x);
 		}
-		if (AllObj.appname.size() == 0) {
+		if (AllObj.appname.size() == 0 || AllObj.sala_list.size() == 0) {
 			Salary.load();
 		}
 		// 加载申请状态
 		for (int x : new int[] { 5, 2, 3, 6, 7, 8 }) {
 			comboBox_app.addItem(AllObj.appname.get(x));
 		}
-		// 加载表格内容
+		// 加载表格内容，加入身份区分后，在初始化时进行一次过滤
+		String appname = comboBox_app.getSelectedItem().toString().trim();
+		String depname = comboBox_dep.getSelectedItem().toString().trim();
+		String uname = textField.getText().trim();
+		String saldate = textField_1.getText().trim();
+		Salary.filter(appname, depname, uname, saldate);
 		Salary.up_table(table);
-
 	}
 }

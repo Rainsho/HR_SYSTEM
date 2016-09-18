@@ -18,6 +18,8 @@ import com.hr_system.action.Welcome;
 import com.hr_system.jframe.hrmange.ContractManageFrame;
 import com.hr_system.jframe.hrmange.EmpManageFrame;
 import com.hr_system.jframe.hrmange.EmpRegistFrame;
+import com.hr_system.jframe.salary.SalaryQueryFrame;
+import com.hr_system.jframe.salary.SalarySettingFrame;
 import com.hr_system.jframe.training.TrainingApplyFrame;
 import com.hr_system.jframe.training.TrainingEvaluateFrame;
 import com.hr_system.jframe.training.TrainingFeedbackFrame;
@@ -160,17 +162,27 @@ public class WelcomeFrame extends JFrame {
 		menuBar.add(mnNewMenu_2);
 
 		JMenuItem menuItem_8 = new JMenuItem("\u85AA\u916C\u8BBE\u7F6E");
+		menuItem_8.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new SalarySettingFrame().setVisible(true);
+			}
+		});
 		mnNewMenu_2.add(menuItem_8);
-		
+
 		JMenuItem menuItem_14 = new JMenuItem("\u85AA\u916C\u5BA1\u6838");
 		menuItem_14.setEnabled(false);
 		mnNewMenu_2.add(menuItem_14);
-		
+
 		JMenuItem menuItem_15 = new JMenuItem("\u85AA\u916C\u5BA1\u6279");
 		menuItem_15.setEnabled(false);
 		mnNewMenu_2.add(menuItem_15);
 
 		JMenuItem menuItem_9 = new JMenuItem("\u85AA\u916C\u67E5\u8BE2");
+		menuItem_9.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new SalaryQueryFrame().setVisible(true);
+			}
+		});
 		mnNewMenu_2.add(menuItem_9);
 
 		JMenu mnNewMenu_3 = new JMenu("\u62DB\u8058\u7BA1\u7406");
@@ -248,6 +260,5 @@ public class WelcomeFrame extends JFrame {
 		}
 		new Thread(new Welcome(label)).start();
 		// À©Õ¹¹¦ÄÜ
-
 	}
 }
