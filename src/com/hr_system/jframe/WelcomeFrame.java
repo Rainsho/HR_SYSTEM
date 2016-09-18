@@ -161,6 +161,14 @@ public class WelcomeFrame extends JFrame {
 
 		JMenuItem menuItem_8 = new JMenuItem("\u85AA\u916C\u8BBE\u7F6E");
 		mnNewMenu_2.add(menuItem_8);
+		
+		JMenuItem menuItem_14 = new JMenuItem("\u85AA\u916C\u5BA1\u6838");
+		menuItem_14.setEnabled(false);
+		mnNewMenu_2.add(menuItem_14);
+		
+		JMenuItem menuItem_15 = new JMenuItem("\u85AA\u916C\u5BA1\u6279");
+		menuItem_15.setEnabled(false);
+		mnNewMenu_2.add(menuItem_15);
 
 		JMenuItem menuItem_9 = new JMenuItem("\u85AA\u916C\u67E5\u8BE2");
 		mnNewMenu_2.add(menuItem_9);

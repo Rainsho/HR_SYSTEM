@@ -34,5 +34,6 @@ public class AllObj {
 	public static HashMap<Integer, EmployeeBean> user_map = new HashMap<Integer, EmployeeBean>();
 	public static ArrayList<SalaryBean> sala_list = new ArrayList<SalaryBean>();
 	public static ArrayList<SalaryBean> sala_show = new ArrayList<SalaryBean>();
+	public static EmployeeBean user_selected;
 
 }

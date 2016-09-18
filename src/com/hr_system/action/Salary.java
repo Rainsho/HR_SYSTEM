@@ -3,7 +3,6 @@ package com.hr_system.action;
 import java.sql.SQLException;
 import java.util.Vector;
 
-import javax.swing.JCheckBox;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -112,6 +111,7 @@ public class Salary {
 		obj.setSalrefund(int2up[i++]);
 		obj.setSalperformance(int2up[i++]);
 		obj.setSaldate(saldate);
+		obj.setAppid(5);// 修改后，强行把appid设置为5
 		// update db
 		try {
 			ORM.con();
@@ -123,16 +123,54 @@ public class Salary {
 			ORM.pst.setString(8, saldate + "-01");
 			ORM.pst.setInt(9, obj.getSalid());
 			ORM.pst.execute();
+			ORM.pst = ORM.con
+					.prepareStatement("update salary set appid=5 where salid=?");
+			ORM.pst.setInt(1, obj.getSalid());
+			ORM.pst.execute();
 			System.out.println("修改成功");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
 
-	public static void up_table2(JTable table) {
-		String[] col = new String[] { "新增", "员工部门", "员工姓名", "薪酬状态", "基本工资",
-				"住房公积金", "基本养老", "健康保险", "失业保险", "报销款", "绩效奖", "月份" };
-		table.setModel(new DefaultTableModel(col, 1));
-		table.setValueAt(new JCheckBox("新增"), 0, 0);
+	public static void add(EmployeeBean obj, int[] int_sala, String saldate) {
+		try {
+			// add db
+			ORM.con();
+			ORM.pst = ORM.con
+					.prepareStatement("insert into salary (uid, appid, salbasic, salhouse, salold, salhealth, salemp, salrefund, salperformance, saldate) values (?, 5, ?, ?, ?, ?, ?, ?, ?, ?)");
+			ORM.pst.setInt(1, obj.getUid());
+			for (int j = 0; j < int_sala.length; j++) {
+				ORM.pst.setInt(j + 2, int_sala[j]);
+			}
+			ORM.pst.setString(9, saldate + "-01");
+			ORM.pst.execute();
+			// add obj
+			int i = 0;
+			SalaryBean temp = new SalaryBean();
+			temp.setSalbasic(int_sala[i++]);
+			temp.setSalhouse(int_sala[i++]);
+			temp.setSalold(int_sala[i++]);
+			temp.setSalhealth(int_sala[i++]);
+			temp.setSalemp(int_sala[i++]);
+			temp.setSalrefund(int_sala[i++]);
+			temp.setSalperformance(int_sala[i++]);
+			temp.setSaldate(saldate);
+			temp.setAppid(5);// 修改后，强行把appid设置为5
+			temp.setUid(obj.getUid());
+			ORM.pst = ORM.con
+					.prepareStatement("select salid from salary where uid=? and saldate=?");
+			ORM.pst.setInt(1, obj.getUid());
+			ORM.pst.setString(2, saldate + "-01");
+			ORM.rs = ORM.pst.executeQuery();
+			ORM.rs.next();
+			temp.setSalid(ORM.rs.getInt(1));
+			AllObj.sala_list.add(temp);
+			AllObj.sala_show.add(temp);
+			System.out.println("修改成功");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
+
 }
