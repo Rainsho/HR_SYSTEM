@@ -8,6 +8,7 @@ import javax.swing.JTable;
 
 import com.hr_system.bean.ContractBean;
 import com.hr_system.bean.EmployeeBean;
+import com.hr_system.bean.RecruBean;
 import com.hr_system.bean.SalaryBean;
 import com.hr_system.bean.TrainingApplyBean;
 import com.hr_system.bean.TrainingPlanBean;
@@ -35,5 +36,8 @@ public class AllObj {
 	public static ArrayList<SalaryBean> sala_list = new ArrayList<SalaryBean>();
 	public static ArrayList<SalaryBean> sala_show = new ArrayList<SalaryBean>();
 	public static EmployeeBean user_selected;
+	// recruitment
+	public static ArrayList<RecruBean> recr_list = new ArrayList<RecruBean>();
+	public static ArrayList<RecruBean> recr_show = new ArrayList<RecruBean>();
 
 }

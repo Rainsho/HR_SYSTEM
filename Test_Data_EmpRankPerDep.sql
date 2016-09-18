@@ -134,3 +134,7 @@ values
 
 insert into applystate (appname) values ('已申请'), ('审核通过'), ('审核未通过'), ('未申请');
 insert into applystate (appname) values ('已设置'), ('审批通过'), ('审批未通过'), ('正式定薪');
+
+INSERT INTO recruitmentInfo (`DepID`, `RankID`, `RecName`, `RecQuant`, `RecStartDate`, `RecStopDate`, `RecInfo`) VALUES ('1', '2', 'test1', '5', '2016-9-1', '2016-10-31', 'test1');
+INSERT INTO recruitmentInfo (`DepID`, `RankID`, `RecName`, `RecQuant`, `RecStartDate`, `RecStopDate`, `RecInfo`) VALUES ('1', '3', 'test2', '99', '2016-9-1', '2017-1-1', 'test2');
+
