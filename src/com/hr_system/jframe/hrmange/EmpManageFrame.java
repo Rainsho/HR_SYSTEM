@@ -119,14 +119,14 @@ public class EmpManageFrame extends JFrame {
 
 		textField = new JTextField();
 		panel_2.add(textField);
-		textField.setColumns(2);
+		textField.setColumns(8);
 
 		JLabel lblNewLabel_1 = new JLabel("\u7535\u8BDD\uFF1A");
 		panel_2.add(lblNewLabel_1);
 
 		textField_1 = new JTextField();
 		panel_2.add(textField_1);
-		textField_1.setColumns(2);//原始值是8，在macos下后面的按钮会被迫排到下一行，暂时改成2#兼容性#
+		textField_1.setColumns(8);// 原始值是8，在macos下后面的按钮会被迫排到下一行，暂时改成2#兼容性#
 
 		JLabel lblNewLabel_2 = new JLabel("\u90E8\u95E8\uFF1A");
 		panel_2.add(lblNewLabel_2);

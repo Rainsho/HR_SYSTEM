@@ -34,7 +34,6 @@ public class TrainingApply {
 				AllObj.triapp.put(x, 4); // 不存在的默认为未申请
 			}
 		}
-
 	}
 
 	public static void filter(String depname, String trpname, String appname) {
@@ -47,7 +46,6 @@ public class TrainingApply {
 				AllObj.trin_show.add(x);
 			}
 		}
-
 	}
 
 	public static void update(TrainingPlanBean obj, int i) {

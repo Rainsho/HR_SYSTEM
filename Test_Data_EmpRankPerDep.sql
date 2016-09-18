@@ -133,3 +133,4 @@ values
 (12,'新合同','2016-1-1',3,'劳动合同','新合同');
 
 insert into applystate (appname) values ('已申请'), ('审核通过'), ('审核未通过'), ('未申请');
+insert into applystate (appname) values ('已设置'), ('审批通过'), ('审批未通过'), ('正式定薪');
