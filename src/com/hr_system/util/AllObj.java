@@ -29,6 +29,7 @@ public class AllObj {
 	public static ArrayList<ContractBean> cont_show = new ArrayList<ContractBean>();
 	public static ArrayList<TrainingPlanBean> trin_list = new ArrayList<TrainingPlanBean>();
 	public static ArrayList<TrainingPlanBean> trin_show = new ArrayList<TrainingPlanBean>();
+	public static HashMap<Integer, TrainingPlanBean> trin_map = new HashMap<Integer, TrainingPlanBean>();
 	public static HashMap<Integer, String> appname = new HashMap<Integer, String>();
 	public static ArrayList<TrainingApplyBean> tria_list = new ArrayList<TrainingApplyBean>();
 	public static HashMap<TrainingPlanBean, Integer> triapp = new HashMap<TrainingPlanBean, Integer>();// 培训计划对应申请状态
@@ -47,5 +48,8 @@ public class AllObj {
 	// info
 	public static ArrayList<InfoBean> info_list = new ArrayList<InfoBean>();
 	public static ArrayList<InfoBean> info_show = new ArrayList<InfoBean>();
+	// trainingcheck
+	public static ArrayList<TrainingApplyBean> tria_tc_list = new ArrayList<TrainingApplyBean>();
+	public static ArrayList<TrainingApplyBean> tria_tc_show = new ArrayList<TrainingApplyBean>();
 
 }

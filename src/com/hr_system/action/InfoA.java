@@ -23,8 +23,8 @@ public class InfoA {
 			AllObj.info_show.clear();
 			while (ORM.rs.next()) {
 				InfoBean obj = new InfoBean(ORM.rs.getInt(1), ORM.rs.getInt(2),
-						ORM.rs.getString(3), ORM.rs.getString(4),
-						ORM.rs.getString(5));
+						ORM.rs.getString(3), ORM.rs.getString(4), ORM.rs
+								.getString(5).substring(0, 19));
 				AllObj.info_list.add(obj);
 				AllObj.info_show.add(obj);
 			}

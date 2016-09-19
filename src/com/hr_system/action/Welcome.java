@@ -8,6 +8,7 @@ import java.util.Date;
 
 import javax.swing.JLabel;
 
+import com.hr_system.bean.InfoBean;
 import com.hr_system.util.AllObj;
 import com.hr_system.util.ORM;
 
@@ -77,5 +78,22 @@ public class Welcome implements Runnable {
 
 		System.out.println("打卡成功！");
 		label.setText("今天共打卡" + i + "次，分别为：" + str);
+	}
+
+	public static String show_info() {
+		int infoid = 3;// 要显示的公告，db可用字段，暂时手动设置
+		if (AllObj.info_list.size() == 0) {
+			InfoA.load();
+		}
+		InfoBean obj = null;
+		for (InfoBean x : AllObj.info_list) {
+			if (x.getInfoid() == infoid) {
+				obj = x;
+				break;
+			}
+		}
+		String str = "公告标题：" + obj.getInfotitle() + "\n发布时间："
+				+ obj.getInfodate() + "\n公告正文：\n" + obj.getInfocontent();
+		return str;
 	}
 }

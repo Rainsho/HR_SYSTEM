@@ -24,6 +24,7 @@ import com.hr_system.jframe.recruitment.RecruFrame;
 import com.hr_system.jframe.salary.SalaryQueryFrame;
 import com.hr_system.jframe.salary.SalarySettingFrame;
 import com.hr_system.jframe.training.TrainingApplyFrame;
+import com.hr_system.jframe.training.TrainingCheckFrame;
 import com.hr_system.jframe.training.TrainingEvaluateFrame;
 import com.hr_system.jframe.training.TrainingFeedbackFrame;
 import com.hr_system.jframe.training.TrainingPlanFrame;
@@ -142,7 +143,11 @@ public class WelcomeFrame extends JFrame {
 		mnNewMenu_1.add(menuItem_5);
 
 		JMenuItem menuItem_13 = new JMenuItem("\u7533\u8BF7\u5BA1\u6838");
-		menuItem_13.setEnabled(false);
+		menuItem_13.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new TrainingCheckFrame().setVisible(true);
+			}
+		});
 		mnNewMenu_1.add(menuItem_13);
 
 		JMenuItem menuItem_6 = new JMenuItem("\u57F9\u8BAD\u8BC4\u4EF7");
@@ -237,8 +242,7 @@ public class WelcomeFrame extends JFrame {
 		panel_2.setLayout(new GridLayout(1, 0, 0, 0));
 
 		JTextPane txtpnxxxx = new JTextPane();
-		txtpnxxxx
-				.setText("[\u516C\u544A\u7CFB\u7EDF\u5B8C\u6210\u540E\uFF0C\u6309\u5982\u4E0B\u683C\u5F0F\u663E\u793A\u901A\u77E5]\r\n\u516C\u544A\u6807\u9898\uFF1AXXXX\u53BB\u6B7B\r\n\u53D1\u5E03\u65F6\u95F4\uFF1A2016\u5E749\u670811\u65E5  09\u65F655\u5206\r\n\u516C\u544A\u6B63\u6587\uFF1AXXXX\u53BB\u6B7B\uFF0C\u5475\u5475\u5475\r\n");
+		txtpnxxxx.setEditable(false);
 		panel_2.add(txtpnxxxx);
 
 		JPanel panel_3 = new JPanel();
@@ -278,5 +282,6 @@ public class WelcomeFrame extends JFrame {
 		}
 		new Thread(new Welcome(label)).start();
 		// À©Õ¹¹¦ÄÜ
+		txtpnxxxx.setText(Welcome.show_info());
 	}
 }

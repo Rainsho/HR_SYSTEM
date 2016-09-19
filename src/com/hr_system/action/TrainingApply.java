@@ -16,6 +16,7 @@ public class TrainingApply {
 					.prepareStatement("select * from trainingapply where uid=?");
 			ORM.pst.setInt(1, AllObj.user.getUid());
 			ORM.rs = ORM.pst.executeQuery();
+			AllObj.tria_list.clear();
 			while (ORM.rs.next()) {
 				TrainingApplyBean obj = new TrainingApplyBean(ORM.rs.getInt(1),
 						ORM.rs.getInt(2), ORM.rs.getInt(3), ORM.rs.getInt(4));

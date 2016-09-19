@@ -31,6 +31,7 @@ public class Training {
 						ORM.rs.getInt(10), ORM.rs.getString(11));
 				AllObj.trin_list.add(obj);
 				AllObj.trin_show.add(obj);
+				AllObj.trin_map.put(obj.getTrpid(), obj);
 			}
 			// 加载申请状态，apply用
 			ORM.rs = ORM.sta.executeQuery("select * from applystate");
@@ -155,6 +156,7 @@ public class Training {
 			obj.setTrpid(ORM.rs.getInt(1));
 			AllObj.trin_list.add(obj);
 			AllObj.trin_show.add(obj);
+			AllObj.trin_map.put(obj.getTrpid(), obj);
 			System.out.println("添加成功");
 		} catch (SQLException e) {
 			e.printStackTrace();
