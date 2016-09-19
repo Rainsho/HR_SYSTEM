@@ -15,6 +15,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JLabel;
 
 import com.hr_system.action.Welcome;
+import com.hr_system.jframe.forum.ForumFrame;
 import com.hr_system.jframe.hrmange.ContractManageFrame;
 import com.hr_system.jframe.hrmange.EmpManageFrame;
 import com.hr_system.jframe.hrmange.EmpRegistFrame;
@@ -210,6 +211,11 @@ public class WelcomeFrame extends JFrame {
 		menuBar.add(mnNewMenu_4);
 
 		JMenuItem menuItem_12 = new JMenuItem("\u7CFB\u7EDF\u516C\u544A");
+		menuItem_12.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new ForumFrame().setVisible(true);
+			}
+		});
 		mnNewMenu_4.add(menuItem_12);
 
 		JPanel panel_1 = new JPanel();

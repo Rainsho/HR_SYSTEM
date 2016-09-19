@@ -140,6 +140,7 @@ public class AddCandiFrame extends JFrame {
 				Candi.add(obj, info);
 				Candi.filter(obj.getRecid());
 				Candi.up_table_1(AllObj.jtb);
+				AllObj.jtb = null;
 			}
 		});
 		button.setBounds(80, 393, 80, 30);
@@ -148,6 +149,7 @@ public class AddCandiFrame extends JFrame {
 		JButton button_1 = new JButton("\u5173\u95ED");
 		button_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				AllObj.jtb = null;
 				that.dispose();
 			}
 		});
