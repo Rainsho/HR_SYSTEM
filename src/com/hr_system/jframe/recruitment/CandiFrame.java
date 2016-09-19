@@ -10,6 +10,7 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.JButton;
+
 import java.awt.GridLayout;
 
 import javax.swing.JLabel;
@@ -21,7 +22,9 @@ import com.hr_system.action.Candi;
 import com.hr_system.action.EmpManage;
 import com.hr_system.action.Recru;
 import com.hr_system.bean.RecruBean;
+import com.hr_system.util.AddMenu;
 import com.hr_system.util.AllObj;
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.ActionListener;
@@ -78,6 +81,9 @@ public class CandiFrame extends JFrame {
 		panel.setBounds(10, 10, 765, 40);
 		contentPane.add(panel);
 		// ‘§¡Ù≤Àµ•Œª÷√****
+		
+		AddMenu.menu(panel);
+		
 		// ‘§¡Ùƒ⁄»›Œª÷√****
 		JPanel panel_1 = new JPanel();
 		panel_1.setBorder(new TitledBorder(new EtchedBorder(
@@ -87,7 +93,6 @@ public class CandiFrame extends JFrame {
 		contentPane.add(panel_1);
 		panel_1.setLayout(null);
 		// ‘§¡Ùƒ⁄»›Œª÷√****
-
 		JPanel panel_2 = new JPanel();
 		panel_2.setBorder(new TitledBorder(null,
 				"\u53D1\u5E03\u4E2D\u7684\u62DB\u8058", TitledBorder.LEADING,

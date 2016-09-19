@@ -20,12 +20,14 @@ import javax.swing.JScrollPane;
 
 import com.hr_system.action.EmpManage;
 import com.hr_system.action.Salary;
+import com.hr_system.action.SalaryCheck;
+import com.hr_system.bean.SalaryBean;
 import com.hr_system.util.AddMenu;
 import com.hr_system.util.AllObj;
 
 import javax.swing.JTable;
 
-public class SalaryQueryFrame extends JFrame {
+public class SalaryCheckFrame extends JFrame {
 
 	/**
 	 * 
@@ -43,7 +45,7 @@ public class SalaryQueryFrame extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					SalaryQueryFrame frame = new SalaryQueryFrame();
+					SalaryCheckFrame frame = new SalaryCheckFrame();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -55,7 +57,7 @@ public class SalaryQueryFrame extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public SalaryQueryFrame() {
+	public SalaryCheckFrame() {
 
 		// 预留菜单位置****
 		setTitle("HR\u7CFB\u7EDFv1.0");
@@ -74,13 +76,13 @@ public class SalaryQueryFrame extends JFrame {
 		panel.setBounds(10, 10, 765, 40);
 		contentPane.add(panel);
 		// 预留菜单位置****
-
+		
 		AddMenu.menu(panel);
-
+		
 		// 预留内容位置****
 		JPanel panel_1 = new JPanel();
 		panel_1.setBorder(new TitledBorder(new EtchedBorder(
-				EtchedBorder.LOWERED, null, null), "薪酬设置",
+				EtchedBorder.LOWERED, null, null), "薪酬审核",
 				TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panel_1.setBounds(10, 60, 765, 380);
 		contentPane.add(panel_1);
@@ -115,6 +117,13 @@ public class SalaryQueryFrame extends JFrame {
 		panel_2.add(textField);
 		textField.setColumns(6);
 
+		JLabel label = new JLabel("\u6708\u4EFD\uFF1A");
+		panel_2.add(label);
+
+		textField_1 = new JTextField();
+		panel_2.add(textField_1);
+		textField_1.setColumns(6);
+
 		JButton btnNewButton = new JButton("检索");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -128,14 +137,49 @@ public class SalaryQueryFrame extends JFrame {
 				Salary.up_table_q(table);
 			}
 		});
-
-		JLabel label = new JLabel("\u6708\u4EFD\uFF1A");
-		panel_2.add(label);
-
-		textField_1 = new JTextField();
-		panel_2.add(textField_1);
-		textField_1.setColumns(6);
 		panel_2.add(btnNewButton);
+
+		JButton button = new JButton("\u5BA1\u6838\u901A\u8FC7");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int col = table.getSelectedColumn();
+				int row = table.getSelectedRow();
+				if (col == -1 || row == -1) {
+					System.out.println("未选择将要审核的对象");
+					return;
+				}
+				SalaryBean obj = AllObj.sala_show.get(row);
+				if (obj.getAppid() != 2 && obj.getAppid() != 3
+						&& obj.getAppid() != 5) {
+					System.out.println("仅能审核已设置或处于审核状态的薪酬信息");
+					return;
+				}
+				SalaryCheck.update(obj, 2);
+				Salary.up_table_q(table);
+			}
+		});
+		panel_2.add(button);
+
+		JButton button_1 = new JButton("\u5BA1\u6838\u4E0D\u901A\u8FC7");
+		button_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int col = table.getSelectedColumn();
+				int row = table.getSelectedRow();
+				if (col == -1 || row == -1) {
+					System.out.println("未选择将要审核的对象");
+					return;
+				}
+				SalaryBean obj = AllObj.sala_show.get(row);
+				if (obj.getAppid() != 2 && obj.getAppid() != 3
+						&& obj.getAppid() != 5) {
+					System.out.println("仅能审核已设置或处于审核状态的薪酬信息");
+					return;
+				}
+				SalaryCheck.update(obj, 3);
+				Salary.up_table_q(table);
+			}
+		});
+		panel_2.add(button_1);
 
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(10, 75, 745, 295);

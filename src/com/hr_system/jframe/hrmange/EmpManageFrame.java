@@ -5,17 +5,16 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.JMenuBar;
+
 import java.awt.FlowLayout;
 
-import javax.swing.JMenu;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.JMenuItem;
 import javax.swing.JLabel;
 
 import com.hr_system.action.EmpManage;
+import com.hr_system.util.AddMenu;
 import com.hr_system.util.AllObj;
 
 import javax.swing.JScrollPane;
@@ -23,6 +22,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -77,29 +77,7 @@ public class EmpManageFrame extends JFrame {
 		panel.setBounds(10, 10, 765, 40);
 		contentPane.add(panel);
 
-		JMenuBar menuBar = new JMenuBar();
-		panel.add(menuBar);
-
-		JMenu mnNewMenu = new JMenu("\u4EBA\u4E8B\u7BA1\u7406");
-		menuBar.add(mnNewMenu);
-
-		JMenuItem menuItem = new JMenuItem("\u5458\u5DE5\u7BA1\u7406");
-		mnNewMenu.add(menuItem);
-
-		JMenuItem menuItem_1 = new JMenuItem("\u6CE8\u518C\u7528\u6237");
-		mnNewMenu.add(menuItem_1);
-
-		JMenu mnNewMenu_1 = new JMenu("\u57F9\u8BAD\u7BA1\u7406");
-		menuBar.add(mnNewMenu_1);
-
-		JMenu mnNewMenu_2 = new JMenu("\u85AA\u916C\u7BA1\u7406");
-		menuBar.add(mnNewMenu_2);
-
-		JMenu mnNewMenu_3 = new JMenu("\u62DB\u8058\u7BA1\u7406");
-		menuBar.add(mnNewMenu_3);
-
-		JMenu mnNewMenu_4 = new JMenu("\u516C\u544A\u7BA1\u7406");
-		menuBar.add(mnNewMenu_4);
+		AddMenu.menu(panel);
 
 		JPanel panel_1 = new JPanel();
 		panel_1.setBorder(new TitledBorder(null, "\u5458\u5DE5\u7BA1\u7406",

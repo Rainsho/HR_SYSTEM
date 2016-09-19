@@ -21,6 +21,7 @@ import com.hr_system.action.EmpManage;
 import com.hr_system.action.Training;
 import com.hr_system.action.TrainingApply;
 import com.hr_system.bean.TrainingPlanBean;
+import com.hr_system.util.AddMenu;
 import com.hr_system.util.AllObj;
 
 import java.awt.GridLayout;
@@ -90,6 +91,9 @@ public class TrainingEvaluateFrame extends JFrame {
 		panel.setBounds(10, 10, 765, 40);
 		contentPane.add(panel);
 		// ‘§¡Ù≤Àµ•Œª÷√****
+		
+		AddMenu.menu(panel);
+		
 		// ‘§¡Ùƒ⁄»›Œª÷√****
 		JPanel panel_1 = new JPanel();
 		panel_1.setBorder(new TitledBorder(new EtchedBorder(

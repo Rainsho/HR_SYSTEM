@@ -16,7 +16,6 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JScrollPane;
 
@@ -24,10 +23,12 @@ import com.hr_system.action.EmpManage;
 import com.hr_system.action.Salary;
 import com.hr_system.bean.EmployeeBean;
 import com.hr_system.bean.SalaryBean;
+import com.hr_system.util.AddMenu;
 import com.hr_system.util.AllObj;
 import com.hr_system.util.SelectUserFrame;
 
 import javax.swing.JTable;
+
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeEvent;
 import java.text.ParseException;
@@ -87,6 +88,9 @@ public class SalarySettingFrame extends JFrame {
 		panel.setBounds(10, 10, 765, 40);
 		contentPane.add(panel);
 		// ‘§¡Ù≤Àµ•Œª÷√****
+
+		AddMenu.menu(panel);
+
 		// ‘§¡Ùƒ⁄»›Œª÷√****
 		JPanel panel_1 = new JPanel();
 		panel_1.setBorder(new TitledBorder(new EtchedBorder(
@@ -96,7 +100,6 @@ public class SalarySettingFrame extends JFrame {
 		contentPane.add(panel_1);
 		panel_1.setLayout(null);
 		// ‘§¡Ùƒ⁄»›Œª÷√****
-
 		JPanel panel_2 = new JPanel();
 		panel_2.setBounds(10, 25, 745, 40);
 		panel_1.add(panel_2);
@@ -323,7 +326,8 @@ public class SalarySettingFrame extends JFrame {
 			public void propertyChange(PropertyChangeEvent evt) {
 				int col = table2.getSelectedColumn();
 				int row = table2.getSelectedRow();
-				if (col == -1 || row == -1) {
+				if (col == -1 || row == -1
+						|| table2.getValueAt(row, col) == null) {
 					return;
 				}
 				if (col == 10) {

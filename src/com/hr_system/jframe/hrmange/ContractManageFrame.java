@@ -14,6 +14,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.JLabel;
 
 import com.hr_system.action.ContractManage;
+import com.hr_system.util.AddMenu;
 import com.hr_system.util.AllObj;
 
 import javax.swing.JScrollPane;
@@ -84,6 +85,8 @@ public class ContractManageFrame extends JFrame {
 		flowLayout.setAlignment(FlowLayout.LEFT);
 		panel.setBounds(10, 10, 765, 40);
 		contentPane.add(panel);
+		
+		AddMenu.menu(panel);
 
 		JPanel panel_1 = new JPanel();
 		panel_1.setBorder(new TitledBorder(new EtchedBorder(

@@ -21,6 +21,7 @@ import javax.swing.JTextPane;
 import com.hr_system.action.EmpManage;
 import com.hr_system.action.Training;
 import com.hr_system.bean.TrainingPlanBean;
+import com.hr_system.util.AddMenu;
 import com.hr_system.util.AllObj;
 import com.hr_system.util.Tools;
 
@@ -36,6 +37,7 @@ import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
 
@@ -100,6 +102,9 @@ public class TrainingPlanFrame extends JFrame {
 		panel.setBounds(10, 10, 765, 40);
 		contentPane.add(panel);
 		// ‘§¡Ù≤Àµ•Œª÷√****
+
+		AddMenu.menu(panel);
+
 		// ‘§¡Ùƒ⁄»›Œª÷√****
 		JPanel panel_1 = new JPanel();
 		panel_1.setBorder(new TitledBorder(new EtchedBorder(
