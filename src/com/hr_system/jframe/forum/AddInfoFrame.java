@@ -92,7 +92,6 @@ public class AddInfoFrame extends JFrame {
 				}
 				InfoA.add(obj.getUid(), infotitle, infocontent);
 				InfoA.up_table(AllObj.jtb);
-				AllObj.jtb = null;
 			}
 		});
 		button.setBounds(100, 380, 80, 30);

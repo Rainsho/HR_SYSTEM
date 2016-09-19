@@ -33,6 +33,7 @@ public class EmpModifyFrame extends JFrame {
 
 	/**
 	 * 删除主方法，改窗口只能确定修改对象后调用 Create the frame.
+	 * 激活菜单，默认修改本人信息
 	 */
 	public EmpModifyFrame(final EmployeeBean emp) {
 		final JFrame that = this;

@@ -92,6 +92,9 @@ public class Welcome implements Runnable {
 				break;
 			}
 		}
+		if (obj == null) {
+			return "没有设置置顶公告";
+		}
 		String str = "公告标题：" + obj.getInfotitle() + "\n发布时间："
 				+ obj.getInfodate() + "\n公告正文：\n" + obj.getInfocontent();
 		return str;

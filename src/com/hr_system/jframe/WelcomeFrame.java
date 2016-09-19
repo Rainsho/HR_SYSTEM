@@ -18,6 +18,7 @@ import com.hr_system.action.Welcome;
 import com.hr_system.jframe.forum.ForumFrame;
 import com.hr_system.jframe.hrmange.ContractManageFrame;
 import com.hr_system.jframe.hrmange.EmpManageFrame;
+import com.hr_system.jframe.hrmange.EmpModifyFrame;
 import com.hr_system.jframe.hrmange.EmpRegistFrame;
 import com.hr_system.jframe.recruitment.CandiFrame;
 import com.hr_system.jframe.recruitment.RecruFrame;
@@ -112,7 +113,15 @@ public class WelcomeFrame extends JFrame {
 		mnNewMenu.add(menuItem_1);
 
 		JMenuItem menuItem_2 = new JMenuItem("\u4EBA\u4E8B\u53D8\u52A8");
-		menuItem_2.setEnabled(false);
+		menuItem_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if (AllObj.user == null) {
+					System.out.println("请先登陆，或者在员工管理窗口选择要修改的员工信息");
+					return;
+				}
+				new EmpModifyFrame(AllObj.user).setVisible(true);
+			}
+		});
 		mnNewMenu.add(menuItem_2);
 
 		JMenuItem menuItem_3 = new JMenuItem("\u5408\u540C\u7BA1\u7406");
