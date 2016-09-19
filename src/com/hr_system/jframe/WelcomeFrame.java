@@ -18,6 +18,8 @@ import com.hr_system.action.Welcome;
 import com.hr_system.jframe.hrmange.ContractManageFrame;
 import com.hr_system.jframe.hrmange.EmpManageFrame;
 import com.hr_system.jframe.hrmange.EmpRegistFrame;
+import com.hr_system.jframe.recruitment.CandiFrame;
+import com.hr_system.jframe.recruitment.RecruFrame;
 import com.hr_system.jframe.salary.SalaryQueryFrame;
 import com.hr_system.jframe.salary.SalarySettingFrame;
 import com.hr_system.jframe.training.TrainingApplyFrame;
@@ -189,9 +191,19 @@ public class WelcomeFrame extends JFrame {
 		menuBar.add(mnNewMenu_3);
 
 		JMenuItem menuItem_10 = new JMenuItem("\u62DB\u8058\u4FE1\u606F");
+		menuItem_10.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new RecruFrame().setVisible(true);
+			}
+		});
 		mnNewMenu_3.add(menuItem_10);
 
 		JMenuItem menuItem_11 = new JMenuItem("\u5E94\u8058\u4FE1\u606F");
+		menuItem_11.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new CandiFrame().setVisible(true);
+			}
+		});
 		mnNewMenu_3.add(menuItem_11);
 
 		JMenu mnNewMenu_4 = new JMenu("\u516C\u544A\u7BA1\u7406");

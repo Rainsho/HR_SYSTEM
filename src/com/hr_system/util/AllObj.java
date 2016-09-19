@@ -6,6 +6,7 @@ import java.util.HashMap;
 import javax.swing.JLabel;
 import javax.swing.JTable;
 
+import com.hr_system.bean.CandiBean;
 import com.hr_system.bean.ContractBean;
 import com.hr_system.bean.EmployeeBean;
 import com.hr_system.bean.RecruBean;
@@ -39,5 +40,8 @@ public class AllObj {
 	// recruitment
 	public static ArrayList<RecruBean> recr_list = new ArrayList<RecruBean>();
 	public static ArrayList<RecruBean> recr_show = new ArrayList<RecruBean>();
+	public static HashMap<Integer, RecruBean> recr_map = new HashMap<Integer, RecruBean>();
+	public static ArrayList<CandiBean> cand_list = new ArrayList<CandiBean>();
+	public static ArrayList<CandiBean> cand_show = new ArrayList<CandiBean>();
 
 }

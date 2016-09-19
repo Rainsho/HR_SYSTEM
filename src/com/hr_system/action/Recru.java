@@ -30,13 +30,13 @@ public class Recru {
 				}
 				AllObj.recr_list.add(obj);
 				AllObj.recr_show.add(obj);
+				AllObj.recr_map.put(obj.getRecid(), obj);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			ORM.close();
 		}
-
 	}
 
 	public static void up_table(JTable table) {
@@ -61,4 +61,90 @@ public class Recru {
 		});
 	}
 
+	public static void filter(String depname, String rankname) {
+		AllObj.recr_show.clear();
+		for (RecruBean x : AllObj.recr_list) {
+			if ((depname.equals("全部") || depname.equals(AllObj.depname.get(x
+					.getDepid())))
+					&& (rankname.equals("全部") || rankname
+							.equals(AllObj.rankname.get(x.getRankid())))) {
+				AllObj.recr_show.add(x);
+			}
+		}
+	}
+
+	public static void update(RecruBean obj, Object[] info) {
+		// update obj
+		int i = 0;
+		obj.setDepid((Integer) info[i++]);
+		obj.setRankid((Integer) info[i++]);
+		obj.setRecname(info[i++].toString());
+		obj.setRecquant(Integer.parseInt(info[i++].toString()));
+		obj.setRecstartdate(info[i++].toString());
+		obj.setRecstopdate(info[i++].toString());
+		obj.setRecinfo(info[i++].toString());
+		if (obj.getRecstopdate().equals("")) {
+			obj.setRecstopdate(null);
+		}
+		if (obj.getRecinfo().equals("")) {
+			obj.setRecinfo(null);
+		}
+		// update db
+		try {
+			ORM.con();
+			ORM.pst = ORM.con
+					.prepareStatement("update recruitmentinfo set depid=?, rankid=?, recname=?, recquant=?, recstartdate=?, recstopdate=?, recinfo=? where recid=?");
+			for (i = 0; i < info.length - 2; i++) {// 最后两个可能为null，手动配置
+				ORM.pst.setString(i + 1, info[i].toString());
+			}
+			if (obj.getRecstopdate() == null) {
+				ORM.pst.setString(6, null);
+			} else {
+				ORM.pst.setString(6, info[5].toString());
+			}
+			if (obj.getRecinfo() == null) {
+				ORM.pst.setString(7, null);
+			} else {
+				ORM.pst.setString(7, info[6].toString());
+			}
+			ORM.pst.setInt(8, obj.getRecid());
+			ORM.pst.execute();
+			System.out.println("修改成功");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			ORM.close();
+		}
+	}
+
+	public static void add(Object[] info) {
+		// update db
+		int i = 0;
+		try {
+			ORM.con();
+			ORM.pst = ORM.con
+					.prepareStatement("insert into recruitmentinfo (depid, rankid, recname, recquant, recstartdate, recstopdate, recinfo) values (?, ?, ?, ?, ?, ?, ?)");
+			for (i = 0; i < info.length - 2; i++) {// 最后两个可能为null，手动配置
+				ORM.pst.setString(i + 1, info[i].toString());
+			}
+			if (info[5].toString().equals("")) {
+				ORM.pst.setString(6, null);
+			} else {
+				ORM.pst.setString(6, info[5].toString());
+			}
+			if (info[6].toString().equals("")) {
+				ORM.pst.setString(7, null);
+			} else {
+				ORM.pst.setString(7, info[6].toString());
+			}
+			ORM.pst.execute();
+			// update obj
+			load();
+			System.out.println("添加成功");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			ORM.close();
+		}
+	}
 }
