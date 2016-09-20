@@ -11,19 +11,23 @@ import java.util.ArrayList;
 
 public class ORM {
 	// MSSQLSERVER
-	private static final String DRIVER = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
-	private static final String URL = "jdbc:sqlserver://127.0.0.1:1433;DataBaseName=";
-	private static final String USER = "sa";
-	private static final String PSWD = "root";
-	private static final String DB = "HR";
-	private static final String SSL = "";
-	// MYSQL
-	// private static final String DRIVER = "com.mysql.jdbc.Driver";
-	// private static final String URL = "jdbc:mysql://127.0.0.1:3306/";
-	// private static final String USER = "root";
-	// private static final String PSWD = "rain@sql";
-	// private static final String DB = "HR";
-	// private static final String SSL = "?useSSL=false&characterEncoding=utf8";
+	private static String DRIVER = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
+	private static String URL = "jdbc:sqlserver://127.0.0.1:1433;DataBaseName=";
+	private static String USER = "sa";
+	private static String PSWD = "root";
+	private static String DB = "HR";
+	private static String SSL = "";
+
+	static { // MYSQL
+		if (System.getProperties().getProperty("os.name").equals("Mac OS X")) {
+			DRIVER = "com.mysql.jdbc.Driver";
+			URL = "jdbc:mysql://127.0.0.1:3306/";
+			USER = "root";
+			PSWD = "rain@sql";
+			DB = "HR";
+			SSL = "?useSSL=false&characterEncoding=utf8";
+		}
+	}
 
 	public static Connection con;
 	public static Statement sta;
