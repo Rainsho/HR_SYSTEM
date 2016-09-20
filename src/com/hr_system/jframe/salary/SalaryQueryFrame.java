@@ -80,7 +80,7 @@ public class SalaryQueryFrame extends JFrame {
 		// 预留内容位置****
 		JPanel panel_1 = new JPanel();
 		panel_1.setBorder(new TitledBorder(new EtchedBorder(
-				EtchedBorder.LOWERED, null, null), "薪酬设置",
+				EtchedBorder.LOWERED, null, null), "薪酬查询",
 				TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panel_1.setBounds(10, 60, 765, 380);
 		contentPane.add(panel_1);
@@ -163,6 +163,16 @@ public class SalaryQueryFrame extends JFrame {
 			comboBox_app.addItem(AllObj.appname.get(x));
 		}
 		// 加载表格内容，加入身份区分后，在初始化时进行一次过滤
+		// 普通用户
+		if (AllObj.user != null) {
+			if (AllObj.user.getPerid() == 3 && AllObj.user.getDepid() != 3) {
+				comboBox_dep.setSelectedItem(AllObj.depname.get(AllObj.user
+						.getDepid()));
+				comboBox_dep.setEnabled(false);
+				textField.setText(AllObj.user.getUname());
+				textField.setEnabled(false);
+			}
+		}
 		String appname = comboBox_app.getSelectedItem().toString().trim();
 		String depname = comboBox_dep.getSelectedItem().toString().trim();
 		String uname = textField.getText().trim();

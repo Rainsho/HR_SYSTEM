@@ -78,7 +78,7 @@ public class TrainingCheckFrame extends JFrame {
 		// 预留菜单位置****
 
 		AddMenu.menu(panel);
-		
+
 		// 预留内容位置****
 		JPanel panel_1 = new JPanel();
 		panel_1.setBorder(new TitledBorder(new EtchedBorder(
@@ -89,7 +89,7 @@ public class TrainingCheckFrame extends JFrame {
 		panel_1.setLayout(null);
 		// 预留内容位置****
 		JPanel panel_2 = new JPanel();
-		panel_2.setBounds(10, 25, 745, 35);
+		panel_2.setBounds(10, 25, 745, 70);
 		panel_1.add(panel_2);
 		panel_2.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
 
@@ -114,6 +114,13 @@ public class TrainingCheckFrame extends JFrame {
 		panel_2.add(textField);
 		textField.setColumns(6);
 
+		JLabel label_11 = new JLabel("\u7533\u8BF7\u4EBA\uFF1A");
+		panel_2.add(label_11);
+
+		textField_1 = new JTextField();
+		textField_1.setColumns(6);
+		panel_2.add(textField_1);
+
 		JButton button = new JButton("检索");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -125,23 +132,43 @@ public class TrainingCheckFrame extends JFrame {
 				TrainingCheck.up_table(table);
 			}
 		});
-
-		JLabel label_11 = new JLabel("\u7533\u8BF7\u4EBA\uFF1A");
-		panel_2.add(label_11);
-
-		textField_1 = new JTextField();
-		textField_1.setColumns(6);
-		panel_2.add(textField_1);
 		panel_2.add(button);
 
-		JPanel panel_3 = new JPanel();
-		panel_3.setBounds(10, 105, 745, 265);
-		panel_1.add(panel_3);
-		panel_3.setLayout(null);
+		final JButton button_1 = new JButton("\u5BA1\u6838\u901A\u8FC7");
+		panel_2.add(button_1);
+		button_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (table.getSelectedRow() == -1
+						|| table.getSelectedColumn() == -1) {
+					System.out.println("未选择要审批的申请");
+					return;
+				}
+				TrainingApplyBean obj = AllObj.tria_tc_show.get(table
+						.getSelectedRow());
+				TrainingCheck.update(obj, 2);
+				TrainingCheck.up_table(table);
+			}
+		});
+
+		final JButton button_2 = new JButton("\u5BA1\u6838\u4E0D\u901A\u8FC7");
+		panel_2.add(button_2);
+		button_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (table.getSelectedRow() == -1
+						|| table.getSelectedColumn() == -1) {
+					System.out.println("未选择要审批的申请");
+					return;
+				}
+				TrainingApplyBean obj = AllObj.tria_tc_show.get(table
+						.getSelectedRow());
+				TrainingCheck.update(obj, 3);
+				TrainingCheck.up_table(table);
+			}
+		});
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(8, 8, 729, 250);
-		panel_3.add(scrollPane);
+		scrollPane.setBounds(10, 105, 745, 265);
+		panel_1.add(scrollPane);
 
 		table = new JTable();
 		scrollPane.setViewportView(table);
@@ -172,43 +199,5 @@ public class TrainingCheckFrame extends JFrame {
 		Salary.load();
 		TrainingCheck.load();
 		TrainingCheck.up_table(table);
-		
-		JPanel panel_4 = new JPanel();
-		FlowLayout flowLayout_1 = (FlowLayout) panel_4.getLayout();
-		flowLayout_1.setAlignment(FlowLayout.LEFT);
-		panel_4.setBounds(10, 60, 745, 35);
-		panel_1.add(panel_4);
-		
-				final JButton button_1 = new JButton("\u5BA1\u6838\u901A\u8FC7");
-				panel_4.add(button_1);
-				
-						final JButton button_2 = new JButton("\u5BA1\u6838\u4E0D\u901A\u8FC7");
-						panel_4.add(button_2);
-						button_2.addActionListener(new ActionListener() {
-							public void actionPerformed(ActionEvent e) {
-								if (table.getSelectedRow() == -1
-										|| table.getSelectedColumn() == -1) {
-									System.out.println("未选择要审批的申请");
-									return;
-								}
-								TrainingApplyBean obj = AllObj.tria_tc_show.get(table
-										.getSelectedRow());
-								TrainingCheck.update(obj, 3);
-								TrainingCheck.up_table(table);
-							}
-						});
-				button_1.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						if (table.getSelectedRow() == -1
-								|| table.getSelectedColumn() == -1) {
-							System.out.println("未选择要审批的申请");
-							return;
-						}
-						TrainingApplyBean obj = AllObj.tria_tc_show.get(table
-								.getSelectedRow());
-						TrainingCheck.update(obj, 2);
-						TrainingCheck.up_table(table);
-					}
-				});
 	}
 }

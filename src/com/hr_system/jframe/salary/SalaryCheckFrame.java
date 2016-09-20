@@ -115,14 +115,14 @@ public class SalaryCheckFrame extends JFrame {
 
 		textField = new JTextField();
 		panel_2.add(textField);
-		textField.setColumns(6);
+		textField.setColumns(4);
 
 		JLabel label = new JLabel("\u6708\u4EFD\uFF1A");
 		panel_2.add(label);
 
 		textField_1 = new JTextField();
 		panel_2.add(textField_1);
-		textField_1.setColumns(6);
+		textField_1.setColumns(4);
 
 		JButton btnNewButton = new JButton("¼ìË÷");
 		btnNewButton.addActionListener(new ActionListener() {
