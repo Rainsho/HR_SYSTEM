@@ -22,8 +22,8 @@ public class ORM {
 		if (System.getProperties().getProperty("os.name").equals("Mac OS X")) {
 			DRIVER = "com.mysql.jdbc.Driver";
 			URL = "jdbc:mysql://127.0.0.1:3306/";
-			USER = "root";
-			PSWD = "rain@sql";
+			USER = "www-data";
+			PSWD = "www-data";
 			DB = "HR";
 			SSL = "?useSSL=false&characterEncoding=utf8";
 		}
